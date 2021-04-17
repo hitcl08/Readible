@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Readible.ServiceInterface\Readible.ServiceInterface.csproj" />
     <ProjectReference Include="..\Readible.ServiceModel\Readible.ServiceModel.csproj" />
     <ProjectReference Include="..\Readible\Readible.csproj" />
   </ItemGroup>

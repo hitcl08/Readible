@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Moq;
 using Newtonsoft.Json;
-using Readible.ServiceInterface.Interfaces;
+using Readible.Domain.Interfaces;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Readible.Tests
@@ -13,7 +14,6 @@ namespace Readible.Tests
     {
         private const string WeatherForecastUriPath = "weatherforecast";
 
-        private static Mock<IReadibleService> _mockReadibleService;
         private readonly WebApplicationFactory<Startup> _webApplicationFactory;
         private static HttpClient _httpClient;
 
@@ -24,7 +24,7 @@ namespace Readible.Tests
         }
 
         [Fact]
-        public async void Get_Weather_Service_Test()
+        public async Task Get_Weather_Service_Test()
         {
             var weatherForecastResponse = await _httpClient.GetAsync(WeatherForecastUriPath);
             Assert.Equal(HttpStatusCode.OK, weatherForecastResponse.StatusCode);

@@ -7,18 +7,26 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Readible.Domain.Interfaces;
+using Readible.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Readible.Domain.Repositories.EntityFramework;
 
 namespace Readible
 {
     public class Startup
     {
+        private readonly string _connectionString;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            _connectionString = "Server=tcp:readible.database.windows.net,1433;Initial Catalog=readible-db;Persist Security Info=False;User ID=liamhitchcock;Password=4fBuJ976YAUdwRXQ;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
         }
 
         public IConfiguration Configuration { get; }
@@ -26,12 +34,20 @@ namespace Readible
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // TODO APP INSIGHTS
+            //services.ConfigureApplicationInsights(Configuration);
 
+            services.AddDbContext<ReadibleContext>(options => options.UseSqlServer(_connectionString));
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Readible", Version = "v1" });
             });
+            services.AddRouting(opt => opt.LowercaseUrls = true);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -260,3 +260,4 @@ paket-files/
 
 # JMeter
 **/JMeterResult.xml
+/Readible.Domain/Migrations
