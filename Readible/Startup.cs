@@ -25,7 +25,7 @@ namespace Readible
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            _connectionString = "Server=tcp:readible.database.windows.net,1433;Initial Catalog=readible-db;Persist Security Info=False;User ID=liamhitchcock;Password=4fBuJ976YAUdwRXQ;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            _connectionString = "Server=tcp:readible.database.windows.net,1433;Initial Catalog=readible-db;Persist Security Info=False;User ID=liamhitchcock;Password=4fBuJ976YAUdwRXQ;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;";
 
         }
 
@@ -37,7 +37,8 @@ namespace Readible
             // TODO APP INSIGHTS
             //services.ConfigureApplicationInsights(Configuration);
 
-            services.AddDbContext<ReadibleContext>(options => options.UseSqlServer(_connectionString));
+            services.AddDbContext<ReadibleContext>(options => options.UseSqlServer(_connectionString)
+            .EnableSensitiveDataLogging());
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
 

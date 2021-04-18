@@ -41,10 +41,10 @@ namespace Readible.Domain.Tests.Services
         {
             // arrange
             var userId = 1;
-            _userRepositoryMock.Setup(x => x.GetUser(userId)).ReturnsAsync(MockData.Users.GetValidUser());
+            _userRepositoryMock.Setup(x => x.GetUserById(userId)).Returns(MockData.Users.GetValidUser());
 
             // act 
-            var result = await _userService.GetUser(userId);
+            var result = _userService.GetUserById(userId);
 
             // assert
             Assert.Equal(result.Id, userId);
@@ -67,10 +67,10 @@ namespace Readible.Domain.Tests.Services
         public async Task GetUser_ShouldReturnNull_ForInvalidUserid()
         {
             var userId = -1;
-            _userRepositoryMock.Setup(x => x.GetUser(userId)).ReturnsAsync(MockData.Users.GetInvalidUser());
+            _userRepositoryMock.Setup(x => x.GetUserById(userId)).Returns(MockData.Users.GetInvalidUser());
 
             // act 
-            var result = await  _userService.GetUser(userId);
+            var result =  _userService.GetUserById(userId);
 
             // assert
             Assert.Null(result);
@@ -80,13 +80,13 @@ namespace Readible.Domain.Tests.Services
         public async Task PostUser_ShouldReturnNewUser_WhenUserIsAdded()
         {
             var user = new User();
-            _userRepositoryMock.Setup(x => x.AddUser(user)).ReturnsAsync(new User());
+            _userRepositoryMock.Setup(x => x.AddUser(user)).ReturnsAsync(true);
 
             // act 
             var result = await _userService.AddUser("jonny", "hello");
 
             // assert
-            Assert.NotNull(result);
+            Assert.True(result);
         }
 
         [Fact]
@@ -94,15 +94,13 @@ namespace Readible.Domain.Tests.Services
         {
             var userPassword = "hello";
             var username = "jonny";
-            _userRepositoryMock.Setup(x => x.UpdateUserPassword(username, userPassword)).ReturnsAsync(MockData.Users.GetValidUser());
+            _userRepositoryMock.Setup(x => x.UpdateUserPassword(username, userPassword)).ReturnsAsync(true);
 
             // act 
             var result = await _userService.UpdateUserPassword(username, userPassword);
 
             // assert
-            Assert.NotNull(result);
-            Assert.Equal(userPassword, result.Password);
+            Assert.True(result);
         }
-
     }
 }

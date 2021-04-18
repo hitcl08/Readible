@@ -1,5 +1,8 @@
-﻿using Readible.Domain.Interfaces;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Readible.Domain.Interfaces;
 using Readible.Domain.Models;
+using Readible.Domain.Repositories.EntityFramework.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +13,82 @@ namespace Readible.Domain.Repositories.EntityFramework
 {
     public class UserRepository : IUserRepository
     {
-        public Task<User> AddUser(User user)
-        {
+        protected readonly ReadibleContext _context;
+        private readonly IMapper _mapper;
 
+        public UserRepository(ReadibleContext context, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
         }
 
-        public Task<bool> DeleteUser(int userId)
+        public async Task<bool> AddUser(User newUser)
         {
-            throw new NotImplementedException();
+            var isExistingUser = _context.User
+                .Any(x => x.Username == newUser.Username); 
+
+            if (isExistingUser)
+            {
+                return false;
+            }
+
+            var user = new UserViewModel 
+            { 
+                Username = newUser.Username, 
+                Password = newUser.Password, 
+                SubscriptionId = newUser.SubscriptionId 
+            };
+
+            var addedUser = _context.User.Add(user);
+            await _context.SaveChangesAsync();
+
+            return addedUser != null;
         }
 
-        public Task<User> GetUser(int userId)
+        public async Task<bool> DeleteUser(int userId)
         {
-            throw new NotImplementedException();
+            var userToDelete = _context.User.Where(x => x.Id == userId).FirstOrDefault();
+
+            if (userToDelete == null)
+            {
+                return false;
+            }
+            var deletedUser = _context.User.Remove(userToDelete);
+            await _context.SaveChangesAsync();
+
+            return deletedUser != null;
         }
 
-        public Task<List<User>> GetUsers()
+        public User GetUserById(int userId)
         {
-            throw new NotImplementedException();
+            var userViewModel = _context.User.Where(x => x.Id == userId).FirstOrDefault();
+            var selectedUser = _mapper.Map<UserViewModel, User>(userViewModel);
+            return selectedUser;
         }
 
-        public Task<User> UpdateUserPassword(string username, string userPassword)
+        public User GetUserByUsername(string username)
         {
-            throw new NotImplementedException();
+            var userViewModel = _context.User.Where(x => x.Username == username).FirstOrDefault();
+            var selectedUser = _mapper.Map<UserViewModel, User>(userViewModel);
+            return selectedUser;
+        }
+
+        public async Task<List<User>> GetUsers()
+        {
+            var userViewModelList = await _context.User.ToListAsync();
+            var userList = _mapper.Map<List<UserViewModel>, List<User>>(userViewModelList);
+            return userList;
+        }
+
+        public async Task<bool> UpdateUserPassword(string username, string userPassword)
+        {
+            var existingUser = _context.User.Where(x => x.Username == username).FirstOrDefault();
+            existingUser.Password = userPassword;
+            await _context.SaveChangesAsync();
+
+            var updatedUser = _context.User.Where(x => x.Username == username).FirstOrDefault();
+
+            return updatedUser.Password == userPassword;
         }
     }
 }

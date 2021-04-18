@@ -11,9 +11,11 @@ namespace Readible.Domain.Interfaces
     public interface IUserService
     {
         Task<List<User>> GetUsers();
-        Task<User> GetUser(int id);
-        Task<User> AddUser(string username, string password);
+        User GetUserById(int id);
+        User GetUserByUsername(string username);
+
+        Task<bool> AddUser(string username, string password);
         Task<bool> DeleteUser(int id);
-        Task<User> UpdateUserPassword(string username, string password);
+        Task<bool> UpdateUserPassword(string username, string password);
     }
 }

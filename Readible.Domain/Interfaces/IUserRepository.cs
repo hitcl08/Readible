@@ -7,9 +7,10 @@ namespace Readible.Domain.Interfaces
     public interface IUserRepository
     {
         Task<List<User>> GetUsers();
-        Task<User> GetUser(int userId);
+        User GetUserById(int userId);
+        User GetUserByUsername(string username);
         Task<bool> DeleteUser(int userId);
-        Task<User> AddUser(User user);
-        Task<User> UpdateUserPassword(string username, string userPassword);
+        Task<bool> AddUser(User user);
+        Task<bool> UpdateUserPassword(string username, string userPassword);
     }
 }

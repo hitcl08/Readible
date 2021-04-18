@@ -1,4 +1,6 @@
-﻿namespace Readible.Domain.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Readible.Domain.Models
 {
     public class User
     {

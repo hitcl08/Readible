@@ -16,11 +16,10 @@ namespace Readible.Domain.Services
             _userRepository = userRepository;
         }
 
-        public Task<User> AddUser(string username, string password)
+        public Task<bool> AddUser(string username, string password)
         {
             var newUser = new User
             {
-                Id = new Random().Next(1000), // TODO: Investigate better way at generating unique id
                 Password = password,
                 Username = username,
                 SubscriptionId = null // new user begins without a subscription
@@ -34,9 +33,14 @@ namespace Readible.Domain.Services
             return _userRepository.DeleteUser(id);
         }
 
-        public Task<User> GetUser(int id)
+        public User GetUserById(int id)
         {
-            return _userRepository.GetUser(id);
+            return _userRepository.GetUserById(id);
+        }
+
+        public User GetUserByUsername(string username)
+        {
+            return _userRepository.GetUserByUsername(username);
         }
 
         public async Task<List<User>> GetUsers()
@@ -44,7 +48,7 @@ namespace Readible.Domain.Services
             return await _userRepository.GetUsers();
         }
 
-        public Task<User> UpdateUserPassword(string username, string password)
+        public Task<bool> UpdateUserPassword(string username, string password)
         {
             return _userRepository.UpdateUserPassword(username, password);
         }
