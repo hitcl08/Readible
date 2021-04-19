@@ -42,9 +42,12 @@ namespace Readible
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISubscriptionService, SubscriptionService>();
+            services.AddScoped<IBookService, BookService>();
+
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+            services.AddScoped<IBookRepository, BookRepository>();
 
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();

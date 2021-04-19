@@ -12,25 +12,6 @@ namespace Readible.Domain.Repositories.EntityFramework
         public DbSet<UserViewModel> User { get; set; }
         public DbSet<SubscriptionViewModel> Subscription { get; set; }
         public DbSet<BookViewModel> Book { get; set; }
-
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            //modelBuilder.Entity<User>(entity => {
-            //    entity.ToTable("User").HasKey(x => x.Id);
-
-            //    entity.Property(x => x.Id);
-
-            //    entity.Property(x => x.Username)
-            //        .HasMaxLength(50)
-            //        .IsUnicode(false);
-
-            //    entity.Property(x => x.Password)
-            //        .HasMaxLength(50)
-            //        .IsUnicode(false);
-
-            //    entity.Property(x => x.SubscriptionId);
-            //});
-        }
+        public DbSet<BookDetailsViewModel> BookDetails { get; set; }
     }
 }
