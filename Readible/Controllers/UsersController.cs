@@ -1,13 +1,6 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
 using Readible.Domain.Interfaces;
-using Readible.Domain.Models;
 using Readible.Requests;
-using Readible.ServiceModel.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Readible.Controllers
@@ -17,18 +10,20 @@ namespace Readible.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly IMapper _mapper;
 
-        public UsersController(IUserService userService, IMapper mapper)
+        public UsersController(IUserService userService)
         {
             _userService = userService;
-            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             var result = await _userService.GetUsers();
+            if (result.Count == 0)
+            {
+                return BadRequest(result);
+            }
             return Ok(result);
         }
 
@@ -87,6 +82,5 @@ namespace Readible.Controllers
             }
             return Ok(result);
         }
-
     }
 }

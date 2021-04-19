@@ -36,7 +36,7 @@ namespace Readible.Domain.Repositories.EntityFramework
             { 
                 Username = newUser.Username, 
                 Password = newUser.Password, 
-                SubscriptionId = newUser.SubscriptionId 
+                SubscriptionId = newUser.Subscription.Id 
             };
 
             var addedUser = _context.User.Add(user);

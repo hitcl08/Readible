@@ -9,7 +9,7 @@ namespace Readible.Domain.Services
 {
     public class UserService : IUserService
     {
-        IUserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
 
         public UserService(IUserRepository userRepository)
         {
@@ -22,7 +22,7 @@ namespace Readible.Domain.Services
             {
                 Password = password,
                 Username = username,
-                SubscriptionId = null // new user begins without a subscription
+                Subscription = new Subscription() // new user begins without a subscription
             };
 
             return _userRepository.AddUser(newUser);

@@ -17,14 +17,14 @@ namespace Readible.Domain.Tests.MockData
                 {
                     Id = 1,
                     Password = "hello",
-                    SubscriptionId  = 1,
+                    Subscription  = new Subscription(),
                     Username = "jonny"
                 },
                 new User
                 {
                     Id = 2,
                     Password = "asdasd",
-                    SubscriptionId  = 2,
+                    Subscription  = new Subscription(),
                     Username = "jim"
                 }
             };
@@ -36,7 +36,7 @@ namespace Readible.Domain.Tests.MockData
             {
                 Id = 1,
                 Password = "hello",
-                SubscriptionId = 1,
+                Subscription = new Subscription(),
                 Username = "jonny"
             };
         }

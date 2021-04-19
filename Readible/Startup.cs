@@ -39,8 +39,12 @@ namespace Readible
 
             services.AddDbContext<ReadibleContext>(options => options.UseSqlServer(_connectionString)
             .EnableSensitiveDataLogging());
+
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ISubscriptionService, SubscriptionService>();
+
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();

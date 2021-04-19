@@ -10,6 +10,9 @@ namespace Readible.Domain.Repositories.EntityFramework
         public ReadibleContext(DbContextOptions<ReadibleContext> options) : base(options) { }
 
         public DbSet<UserViewModel> User { get; set; }
+        public DbSet<SubscriptionViewModel> Subscription { get; set; }
+        public DbSet<BookViewModel> Book { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
