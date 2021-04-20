@@ -18,6 +18,9 @@ using Readible.Domain.Repositories.EntityFramework;
 using AutoMapper;
 using Readible.Domain.Repositories.EntityFramework.ViewModels;
 using Readible.Domain.Models;
+using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 
 namespace Readible
 {
@@ -69,6 +72,24 @@ namespace Readible
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Readible v1"));
             }
+
+            app.UseExceptionHandler(
+                options =>
+                {
+                    options.Run(
+                        async context =>
+                        {
+                            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                            context.Response.ContentType = "text/html";
+                            var exceptionObject = context.Features.Get<IExceptionHandlerFeature>();
+                            if (null != exceptionObject)
+                            {
+                                var errorMessage = $"<b>Exception Error: {exceptionObject.Error.Message} </b> {exceptionObject.Error.StackTrace}";
+                                await context.Response.WriteAsync(errorMessage).ConfigureAwait(false);
+                            }
+                        });
+                }
+            );
 
             app.UseHttpsRedirection();
 

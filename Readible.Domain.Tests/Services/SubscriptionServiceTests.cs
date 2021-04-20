@@ -33,82 +33,77 @@ namespace Readible.Domain.Tests.Services
             _subscriptionRepositoryMock.Setup(x => x.GetSubscriptions()).ReturnsAsync(MockData.Subscriptions.GetSubscriptions());
 
             // act
-            var result = await _subscriptionService.GetSubscriptions();
+            var result = await _subscriptionService.GetAllSubscriptions();
 
             // assert
             Assert.Equal(2, result.Count);
         }
 
         [Fact]
-        public async Task GetSubscription_ReturnsSubscriptionForUser_WhenValidUserId()
+        public void GetSubscription_ReturnsSubscriptionForUser_WhenValidUserId()
         {
             // arrange
-            var username = "asd";
             _subscriptionRepositoryMock.Setup(x => x.GetSubscription(It.IsAny<int>())).Returns(MockData.Subscriptions.GetValidSubscription());
             _userServiceMock.Setup(x => x.GetUserByUsername(It.IsAny<string>())).Returns(MockData.Users.GetValidUser());
 
             // act
-            var result = _subscriptionService.GetSubscription(username);
+            var result = _subscriptionService.AddUserSubscription(1);
 
             // assert
             Assert.NotNull(result);
         }
 
         [Fact]
-        public async Task AddSubscription_ReturnsTrue_WhenValidUsername()
+        public async Task AddUserSubscription_ReturnsTrue_WhenValidUserId()
         {
             // arrange
-            var username = "asd";
             _subscriptionRepositoryMock.Setup(x => x.Add(It.IsAny<int>())).ReturnsAsync(true);
             _userServiceMock.Setup(x => x.GetUserByUsername(It.IsAny<string>())).Returns(MockData.Users.GetValidUser());
 
             // act
-            var result = await _subscriptionService.AddSubscription(username);
+            var result = await _subscriptionService.AddUserSubscription(1);
 
             // assert
             Assert.True(result);
         }
 
         [Fact]
-        public async Task AddSubscription_ReturnsFalse_WhenInvalidUsername()
+        public async Task AddUserSubscription_ReturnsFalse_WhenInvalidUserId()
         {
             // arrange
-            var username = "";
             _subscriptionRepositoryMock.Setup(x => x.Add(It.IsAny<int>())).ReturnsAsync(false);
             _userServiceMock.Setup(x => x.GetUserByUsername(It.IsAny<string>())).Returns(MockData.Users.GetInvalidUser());
 
             // act
-            var result = await _subscriptionService.AddSubscription(username);
+            var result = await _subscriptionService.AddUserSubscription(-1);
 
             // assert
             Assert.False(result);
         }
 
         [Fact]
-        public async Task DeleteSubscription_ReturnsTrue_WhenValidUsername()
+        public async Task DeleteUserSubscription_ReturnsTrue_WhenValidUsername()
         {
             // arrange
-            var username = "asd";
-            _subscriptionRepositoryMock.Setup(x => x.Delete(It.IsAny<int>())).ReturnsAsync(true);
+            _subscriptionRepositoryMock.Setup(x => x.DeleteByUserId(It.IsAny<int>())).ReturnsAsync(true);
             _userServiceMock.Setup(x => x.GetUserByUsername(It.IsAny<string>())).Returns(MockData.Users.GetValidUser());
 
             // act
-            var result = await _subscriptionService.DeleteSubscription(username);
+            var result = await _subscriptionService.DeleteUserSubscription(1);
 
             // assert
             Assert.True(result);
         }
 
         [Fact]
-        public async Task DeleteSubscription_ReturnsFalse_WhenInvalidUsername()
+        public async Task DeleteUserSubscription_ReturnsFalse_WhenInvalidUsername()
         {
             // arrange
-            var username = "";
-            _subscriptionRepositoryMock.Setup(x => x.Delete(It.IsAny<int>())).ReturnsAsync(false);
+            _subscriptionRepositoryMock.Setup(x => x.DeleteByUserId(It.IsAny<int>())).ReturnsAsync(false);
             _userServiceMock.Setup(x => x.GetUserByUsername(It.IsAny<string>())).Returns(MockData.Users.GetInvalidUser());
 
             // act
-            var result = await _subscriptionService.AddSubscription(username);
+            var result = await _subscriptionService.DeleteUserSubscription(-1);
 
             // assert
             Assert.False(result);

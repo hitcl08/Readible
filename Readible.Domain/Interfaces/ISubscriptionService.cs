@@ -9,9 +9,10 @@ namespace Readible.Domain.Interfaces
 {
     public interface ISubscriptionService
     {
-        Task<List<Subscription>> GetSubscriptions();
-        Subscription GetSubscription(string username);
-        Task<bool> AddSubscription(string username);
-        Task<bool> DeleteSubscription(string username);
+        Task<List<Subscription>> GetAllSubscriptions();
+        Subscription GetUserSubscription(int userId);
+        Task<bool> AddUserSubscription(int userId);
+        Task<bool> DeleteUserSubscription(int userId);
+        Task<bool> DeleteSubscription(int subscriptionId);
     }
 }

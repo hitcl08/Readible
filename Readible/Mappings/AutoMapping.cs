@@ -10,8 +10,9 @@ namespace Readible.Mappings
     {
         public AutoMapping()
         {
-            CreateMap<User, UserDto>();
             CreateMap<UserViewModel, User>();
+            CreateMap<SubscriptionViewModel, Subscription>();
+            CreateMap<BookViewModel, Book>();
         }
     }
 }

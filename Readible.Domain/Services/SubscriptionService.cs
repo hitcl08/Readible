@@ -20,25 +20,31 @@ namespace Readible.Domain.Services
             _userService = userService;
         }
 
-        public async Task<bool> AddSubscription(string username)
+        public async Task<bool> AddUserSubscription(int userId)
         {
-            var user = _userService.GetUserByUsername(username);
+            var user = _userService.GetUserById(userId);
             return user != null && await _subscriptionRepository.Add(user.Id);
         }
 
-        public async Task<bool> DeleteSubscription(string username)
+        public async Task<bool> DeleteUserSubscription(int userId)
         {
-            var user = _userService.GetUserByUsername(username);
-            return user != null && await _subscriptionRepository.Delete(user.Id);
+            var user = _userService.GetUserById(userId);
+            return user != null && await _subscriptionRepository.DeleteByUserId(user.Id);
         }
 
-        public Subscription GetSubscription(string username)
+        public async Task<bool> DeleteSubscription(int subscriptionId)
         {
-            var user = _userService.GetUserByUsername(username);
+            var subscription = _subscriptionRepository.GetSubscription(subscriptionId);
+            return subscription != null && await _subscriptionRepository.DeleteBySubscriberId(subscription.Id);
+        }
+
+        public Subscription GetUserSubscription(int userId)
+        {
+            var user = _userService.GetUserById(userId);
             return user != null ? _subscriptionRepository.GetSubscription(user.Id) : null;
         }
 
-        public async Task<List<Subscription>> GetSubscriptions()
+        public async Task<List<Subscription>> GetAllSubscriptions()
         {
             return await _subscriptionRepository.GetSubscriptions();
         }

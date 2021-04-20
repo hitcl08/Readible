@@ -35,7 +35,7 @@ namespace Readible.Domain.Tests.Repositories
         }
 
         [Fact(Skip ="no need to add more subscriptions")]
-        public async Task AddSubscription_ShouldReturnTrue_ForValidUserId()
+        public async Task AddUserSubscription_ShouldReturnTrue_ForValidUserId()
         {
             // arrange
             var userId = 1;
@@ -48,26 +48,26 @@ namespace Readible.Domain.Tests.Repositories
         }
 
         [Fact(Skip = "no need to delete subscriptions")]
-        public async Task DeleteSubscription_ShouldReturnTrue_ForValidUserId()
+        public async Task DeleteUserSubscription_ShouldReturnTrue_ForValidUserId()
         {
             // arrange
             var userId = 1;
 
             // act
-            var isAdded = await _subscriptionRepository.Delete(userId);
+            var isAdded = await _subscriptionRepository.DeleteByUserId(userId);
 
             // assert
             Assert.True(isAdded);
         }
 
         [Fact]
-        public async Task DeleteSubscription_ShouldReturnFalse_ForInvalidUserId()
+        public async Task DeleteUserSubscription_ShouldReturnFalse_ForInvalidUserId()
         {
             // arrange
             var userId = -1;
 
             // act
-            var isAdded = await _subscriptionRepository.Delete(userId);
+            var isAdded = await _subscriptionRepository.DeleteByUserId(userId);
 
             // assert
             Assert.False(isAdded);

@@ -34,9 +34,21 @@ namespace Readible.Domain.Repositories.EntityFramework
             return addedSubscription != null;
         }
 
-        public async Task<bool> Delete(int userId)
+        public async Task<bool> DeleteByUserId(int userId)
         {
             var subscriptionToDelete = _context.Subscriptions.Where(s => s.UserId == userId).FirstOrDefault();
+            var subBooksToDelete = await _context.SubscriptionBooks.Where(sb => sb.SubscriptionId == subscriptionToDelete.Id).ToListAsync();
+
+            var deletedSub = _context.Subscriptions.Remove(subscriptionToDelete);
+            _context.SubscriptionBooks.RemoveRange(subBooksToDelete);
+            await _context.SaveChangesAsync();
+
+            return deletedSub != null;
+        }
+
+        public async Task<bool> DeleteBySubscriberId(int subscriptionId)
+        {
+            var subscriptionToDelete = _context.Subscriptions.Where(s => s.Id == subscriptionId).FirstOrDefault();
             var subBooksToDelete = await _context.SubscriptionBooks.Where(sb => sb.SubscriptionId == subscriptionToDelete.Id).ToListAsync();
 
             var deletedSub = _context.Subscriptions.Remove(subscriptionToDelete);

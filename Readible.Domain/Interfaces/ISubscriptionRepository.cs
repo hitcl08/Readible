@@ -12,6 +12,7 @@ namespace Readible.Domain.Interfaces
         Task<List<Subscription>> GetSubscriptions();
         Subscription GetSubscription(int userId);
         Task<bool> Add(int userId);
-        Task<bool> Delete(int userId);
+        Task<bool> DeleteByUserId(int userId);
+        Task<bool> DeleteBySubscriberId(int subscriptionId);
     }
 }

@@ -28,7 +28,7 @@ namespace Readible.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get([FromRoute]int id)
+        public IActionResult Get([FromRoute]int id)
         {
             var result = _userService.GetUserById(id);
             if (result == null)
@@ -39,7 +39,7 @@ namespace Readible.Controllers
         }
 
         [HttpGet("{username}")]
-        public async Task<IActionResult> Get([FromRoute] string username)
+        public  IActionResult Get([FromRoute] string username)
         {
             var result = _userService.GetUserByUsername(username);
             if (result == null)
