@@ -26,13 +26,18 @@ namespace Readible.Domain.Tests.MockData
             };
         }
 
-        internal static Subscription GetSubscription()
+        internal static Subscription GetValidSubscription()
         {
             return new Subscription
             {
                 Id = 1,
                 UserId = 3
             };
+        }
+
+        internal static Subscription GetInvalidSubscription()
+        {
+            return null;
         }
     }
 }

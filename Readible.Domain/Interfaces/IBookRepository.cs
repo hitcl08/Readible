@@ -15,6 +15,6 @@ namespace Readible.Domain.Interfaces
         Task<List<Book>> GetBooks();
         Task<List<Book>> GetBooks(int subscriptionId);
         Task<bool> RemoveBook(int bookId);
-        Task<bool> RemoveBookFromSubscription(int subscriptionId);
+        Task<bool> RemoveBookFromSubscription(int subscriptionId, int bookId);
     }
 }

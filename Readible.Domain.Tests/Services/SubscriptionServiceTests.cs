@@ -44,7 +44,7 @@ namespace Readible.Domain.Tests.Services
         {
             // arrange
             var username = "asd";
-            _subscriptionRepositoryMock.Setup(x => x.GetSubscription(It.IsAny<int>())).Returns(MockData.Subscriptions.GetSubscription());
+            _subscriptionRepositoryMock.Setup(x => x.GetSubscription(It.IsAny<int>())).Returns(MockData.Subscriptions.GetValidSubscription());
             _userServiceMock.Setup(x => x.GetUserByUsername(It.IsAny<string>())).Returns(MockData.Users.GetValidUser());
 
             // act

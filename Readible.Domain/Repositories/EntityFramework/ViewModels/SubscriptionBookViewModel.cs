@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace Readible.Domain.Repositories.EntityFramework.ViewModels
 {
-    public class UserViewModel
+    public class SubscriptionBookViewModel
     {
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-
+        public int BookId { get; set; }
+        public BookViewModel Book { get; set; }
+        public int SubscriptionId { get; set; }
         public SubscriptionViewModel Subscription { get; set; }
     }
 }

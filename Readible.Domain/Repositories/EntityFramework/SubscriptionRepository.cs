@@ -24,62 +24,32 @@ namespace Readible.Domain.Repositories.EntityFramework
 
         public async Task<bool> Add(int userId)
         {
-            var user = _context.User.Where(x => x.Id == userId).FirstOrDefault();
-            if (user == null)
-            {
-                return false;
-            }
-
-            // dont add new subscription if subscription already exists for user
-            if (user.SubscriptionId > 0)
-            {
-                return false;
-            }
-
-            var addedSubscription = _context.Subscription
-                .Add(new SubscriptionViewModel
-                {
-                    UserId = user.Id
+            var addedSubscription = _context.Subscriptions
+                .Add(new SubscriptionViewModel 
+                { 
+                    UserId = userId                    
                 });
 
             await _context.SaveChangesAsync();
-            await SetUserSubscriptionId(user, addedSubscription.Entity.Id);
-
             return addedSubscription != null;
         }
 
         public async Task<bool> Delete(int userId)
         {
-            var user = _context.User.Where(x => x.Id == userId).FirstOrDefault();
-            if (user == null)
-            {
-                return false;
-            }
+            var subscriptionToDelete = _context.Subscriptions.Where(s => s.UserId == userId).FirstOrDefault();
+            var subBooksToDelete = await _context.SubscriptionBooks.Where(sb => sb.SubscriptionId == subscriptionToDelete.Id).ToListAsync();
 
-            var subscriptionId = _context.User
-                .Where(x => x.SubscriptionId == user.SubscriptionId)
-                .FirstOrDefault()
-                .SubscriptionId;
-
-            var subToDelete = _context.Subscription.Where(x => x.Id == subscriptionId).FirstOrDefault();
-            var deletedSub = subToDelete != null ? _context.Subscription.Remove(subToDelete) : null;
+            var deletedSub = _context.Subscriptions.Remove(subscriptionToDelete);
+            _context.SubscriptionBooks.RemoveRange(subBooksToDelete);
             await _context.SaveChangesAsync();
-
-            await SetUserSubscriptionId(user, -1);
 
             return deletedSub != null;
         }
 
         public Subscription GetSubscription(int userId)
         {
-            var user = _context.User.Where(x => x.Id == userId).FirstOrDefault();
-            if (user == null)
-            {
-                return null;
-            }
-
-            var subscriptionViewModel = _context.Subscription
-                .Where(x => x.Id == user.SubscriptionId)
+            var subscriptionViewModel = _context.Subscriptions
+                .Where(x => x.UserId == userId)
                 .FirstOrDefault();
 
             return _mapper.Map<SubscriptionViewModel, Subscription>(subscriptionViewModel);
@@ -87,14 +57,8 @@ namespace Readible.Domain.Repositories.EntityFramework
 
         public async Task<List<Subscription>> GetSubscriptions()
         {
-            var subscriptionViewModelList = await _context.Subscription.ToListAsync();
+            var subscriptionViewModelList = await _context.Subscriptions.ToListAsync();
             return _mapper.Map<List<SubscriptionViewModel>, List<Subscription>>(subscriptionViewModelList);
-        }
-
-        private async Task SetUserSubscriptionId(UserViewModel user, int subscriptionId)
-        {
-            user.SubscriptionId = subscriptionId;
-            await _context.SaveChangesAsync();
         }
     }
 }

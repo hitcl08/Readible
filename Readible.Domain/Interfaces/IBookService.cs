@@ -12,9 +12,9 @@ namespace Readible.Domain.Interfaces
         Task<bool> AddBook(Book book);
         Task<bool> AddBookToSubscription(int subscriptionId, int bookId);
         Book GetBook(int bookId);
-        List<Book> GetAllBooks();
-        List<Book> GetBooksBySubscription(int subscriptionId);
+        Task<List<Book>> GetAllBooks();
+        Task<List<Book>> GetBooksBySubscription(int subscriptionId);
         Task<bool> RemoveBook(int bookId);
-        Task<bool> RemoveBookFromSubscription(int subscriptionId);
+        Task<bool> RemoveBookFromSubscription(int subscriptionId, int bookId);
     }
 }

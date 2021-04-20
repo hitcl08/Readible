@@ -15,6 +15,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Readible.Domain.Repositories.EntityFramework;
+using AutoMapper;
+using Readible.Domain.Repositories.EntityFramework.ViewModels;
+using Readible.Domain.Models;
 
 namespace Readible
 {
@@ -44,11 +47,10 @@ namespace Readible
             services.AddScoped<ISubscriptionService, SubscriptionService>();
             services.AddScoped<IBookService, BookService>();
 
-
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
             services.AddScoped<IBookRepository, BookRepository>();
-
+            
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
             services.AddSwaggerGen(c =>

@@ -34,10 +34,9 @@ namespace Readible.Domain.Tests.MockData
         {
             return new User
             {
-                Id = 1,
-                Password = "hello",
+                Password = "hellos",
                 Subscription = new Subscription(),
-                Username = "jonny"
+                Username = "jim"
             };
         }
 

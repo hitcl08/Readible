@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Readible.Domain.Interfaces;
 using Readible.Domain.Models;
 using Readible.Domain.Repositories.EntityFramework.ViewModels;
@@ -23,55 +24,76 @@ namespace Readible.Domain.Repositories.EntityFramework
 
         public async Task<bool> AddBook(Book book)
         {
-            var addedBook = _context.Book
-                .Add(new BookViewModel
-                {
-                    SubscriptionId = null
-                });
-
-            var addedBookDetails = _context.BookDetails
-                .Add(new BookDetailsViewModel
-                {
-                    BookId = book.Id,
-                    Name = book.Name,
-                    ImageUrl = book.ImageUrl,
-                    Description = book.Description,
-                    Rating = book.Rating
-                });
-
+            var bookViewModel = new BookViewModel
+            {
+                Name = book.Name,
+                Description = book.Description,
+                ImageUrl = book.ImageUrl,
+                Rating = book.Rating,
+            };
+            var addedBook = _context.Books.Add(bookViewModel);
             await _context.SaveChangesAsync();
 
-            return addedBook != null && addedBookDetails != null;
+            return addedBook != null;
         }
 
-        public Task<bool> AddBookToSubscription(int subscriptionId, int bookId)
+        public async Task<bool> AddBookToSubscription(int subscriptionId, int bookId)
         {
-            throw new NotImplementedException();
+            var subscriptionBook = new SubscriptionBookViewModel
+            {
+                SubscriptionId = subscriptionId,
+                BookId = bookId
+            };
+            var addedSubBook = _context.SubscriptionBooks.Add(subscriptionBook);
+            await _context.SaveChangesAsync();
+
+            return addedSubBook != null;
         }
 
         public Book GetBook(int bookId)
         {
-            throw new NotImplementedException();
+            var bookViewModel = _context.Books.Where(b => b.Id == bookId).FirstOrDefault();
+            return _mapper.Map<BookViewModel, Book>(bookViewModel);
         }
 
-        public Task<List<Book>> GetBooks()
+        public async Task<List<Book>> GetBooks()
         {
-            throw new NotImplementedException();
+            var bookViewModel = await _context.Books.ToListAsync();
+            return _mapper.Map<List<BookViewModel>, List<Book>>(bookViewModel);
         }
 
-        public Task<List<Book>> GetBooks(int subscriptionId)
+        public async Task<List<Book>> GetBooks(int subscriptionId)
         {
-            throw new NotImplementedException();
+            var bookViewModel = await _context.Books
+                .Where(x => x.SubscriptionBooks
+                .Any(s => s.SubscriptionId == subscriptionId))
+                .ToListAsync();
+
+            var bookList = _mapper.Map<List<BookViewModel>, List<Book>>(bookViewModel);
+            return bookList;
         }
 
-        public Task<bool> RemoveBook(int bookId)
+        public async Task<bool> RemoveBook(int bookId)
         {
-            throw new NotImplementedException();
+            var bookToDelete = _context.Books.Where(b => b.Id == bookId).FirstOrDefault();
+
+            var deletedBook = _context.Books.Remove(bookToDelete);
+            await _context.SaveChangesAsync();
+            
+            return deletedBook != null;
         }
 
-        public Task<bool> RemoveBookFromSubscription(int subscriptionId)
+        public async Task<bool> RemoveBookFromSubscription(int subscriptionId, int bookId)
         {
-            throw new NotImplementedException();
+            var subscriptionBookToDelete = _context.SubscriptionBooks
+                .Where(sb => sb.BookId == bookId)
+                .Where(sb => sb.SubscriptionId == subscriptionId)
+                .FirstOrDefault();
+
+            var deletedSubscriptionBook = _context.SubscriptionBooks.Remove(subscriptionBookToDelete);
+            await _context.SaveChangesAsync();
+
+            return deletedSubscriptionBook != null;
         }
     }
 }

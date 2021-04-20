@@ -22,24 +22,15 @@ namespace Readible.Domain.Repositories.EntityFramework
             _mapper = mapper;
         }
 
-        public async Task<bool> AddUser(User newUser)
+        public async Task<bool> AddUser(User user)
         {
-            var isExistingUser = _context.User
-                .Any(x => x.Username == newUser.Username); 
-
-            if (isExistingUser)
+            var newUser = new UserViewModel
             {
-                return false;
-            }
-
-            var user = new UserViewModel 
-            { 
-                Username = newUser.Username, 
-                Password = newUser.Password, 
-                SubscriptionId = newUser.Subscription.Id 
+                Username = user.Username,
+                Password = user.Password
             };
 
-            var addedUser = _context.User.Add(user);
+            var addedUser = _context.Users.Add(newUser);
             await _context.SaveChangesAsync();
 
             return addedUser != null;
@@ -47,13 +38,9 @@ namespace Readible.Domain.Repositories.EntityFramework
 
         public async Task<bool> DeleteUser(int userId)
         {
-            var userToDelete = _context.User.Where(x => x.Id == userId).FirstOrDefault();
+            var userToDelete = _context.Users.Where(x => x.Id == userId).FirstOrDefault();
 
-            if (userToDelete == null)
-            {
-                return false;
-            }
-            var deletedUser = _context.User.Remove(userToDelete);
+            var deletedUser = _context.Users.Remove(userToDelete);
             await _context.SaveChangesAsync();
 
             return deletedUser != null;
@@ -61,32 +48,31 @@ namespace Readible.Domain.Repositories.EntityFramework
 
         public User GetUserById(int userId)
         {
-            var userViewModel = _context.User.Where(x => x.Id == userId).FirstOrDefault();
-            var selectedUser = _mapper.Map<UserViewModel, User>(userViewModel);
-            return selectedUser;
+            var userViewModel = _context.Users.Where(x => x.Id == userId).FirstOrDefault();
+            return _mapper.Map<UserViewModel, User>(userViewModel);
         }
 
         public User GetUserByUsername(string username)
         {
-            var userViewModel = _context.User.Where(x => x.Username == username).FirstOrDefault();
+            var userViewModel = _context.Users.Where(x => x.Username == username).FirstOrDefault();
             var selectedUser = _mapper.Map<UserViewModel, User>(userViewModel);
             return selectedUser;
         }
 
         public async Task<List<User>> GetUsers()
         {
-            var userViewModelList = await _context.User.ToListAsync();
+            var userViewModelList = await _context.Users.ToListAsync();
             var userList = _mapper.Map<List<UserViewModel>, List<User>>(userViewModelList);
             return userList;
         }
 
         public async Task<bool> UpdateUserPassword(string username, string userPassword)
         {
-            var existingUser = _context.User.Where(x => x.Username == username).FirstOrDefault();
+            var existingUser = _context.Users.Where(x => x.Username == username).FirstOrDefault();
             existingUser.Password = userPassword;
             await _context.SaveChangesAsync();
 
-            var updatedUser = _context.User.Where(x => x.Username == username).FirstOrDefault();
+            var updatedUser = _context.Users.Where(x => x.Username == username).FirstOrDefault();
 
             return updatedUser.Password == userPassword;
         }
