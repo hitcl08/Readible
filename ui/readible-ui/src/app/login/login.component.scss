@@ -1,0 +1,93 @@
+.container {
+  width: 750px;
+}
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.e-layout-modal {
+  display: block;
+  min-height: 100%;
+  width: 100%;
+}
+
+.row {
+  //display: table-cell;
+  padding: 20px 0 0;
+  vertical-align: middle;
+}
+
+.e-login-registration {
+  background-color: #fff;
+  box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.3);
+  margin: 0 auto;
+  max-width: 500px;
+  position: relative;
+  width: 100%;
+}
+
+.e-login-registration .e-header {
+  height: 80px;
+  padding-top: 35px;
+}
+
+.e-login-registration .e-header div.e-emi-logo {
+  background: url(../../assets/logo.png) no-repeat center bottom;
+  background-size: 270px 170px;
+  display: block;
+  height: 30px;
+  margin: 0 auto;
+  position: relative;
+  width: 400px;
+  height: 180px;
+}
+
+.e-login-registration .e-modal-content {
+  padding-left: 75px;
+  padding-right: 75px;
+}
+
+.e-login-registration .e-modal-content {
+  height: 435px;
+  padding: 15px 35px 75px 35px;
+  overflow: auto;
+  margin-top: 50px;
+}
+
+h1.e-modal-heading {
+  color: #34657f;
+  font-size: 30px;
+  font-weight: 400;
+  margin: 70px 0 15px 0;
+  text-align: center;
+}
+
+.title{
+  position: fixed;
+  color: #34657f;
+
+}
+
+.credential-container {
+  position: absolute;
+  left: 110px;
+  top: 300px;
+}
+
+mat-form-field {
+  width: 300px;
+  padding-bottom: 10px;
+}
+
+.login-failed {
+  color: red;
+  font-weight: 600;
+  font-size: 15px;
+  position: absolute;
+  left: 50px;
+  top: 210px;
+}
