@@ -261,3 +261,5 @@ paket-files/
 # JMeter
 **/JMeterResult.xml
 /Readible.Domain/Migrations
+/api/Readible.Domain/Migrations
+/api/Readible/Properties/ServiceDependencies
