@@ -13,7 +13,6 @@ namespace Readible.Domain.Services
         private readonly ISubscriptionRepository _subscriptionRepository;
         private readonly IUserService _userService;
 
-
         public SubscriptionService(ISubscriptionRepository subscriptionRepository, IUserService userService)
         {
             _subscriptionRepository = subscriptionRepository;

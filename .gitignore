@@ -263,3 +263,4 @@ paket-files/
 /Readible.Domain/Migrations
 /api/Readible.Domain/Migrations
 /api/Readible/Properties/ServiceDependencies
+ui/readible-ui/report.*.json

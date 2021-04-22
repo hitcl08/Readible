@@ -2,20 +2,25 @@
   <div fxLayout="row wrap" fxLayoutGap="16px"   fxLayoutAlign="">
     <div class="book-card-item" fxFlex="20%" *ngFor="let num of [1,2,3,4,5,6,7]">
       <mat-card class="mat-elevation-z4">
+
         <mat-card-header>
           <mat-card-title>Dune</mat-card-title>
           <mat-card-subtitle>Frank Herbert</mat-card-subtitle>
+          <mat-card-actions>
+            <button mat-button>
+              <mat-icon>add</mat-icon>
+            </button>
+          </mat-card-actions>
         </mat-card-header>
         <img mat-card-image src="http://books.google.com/books/content?id=ydQiDQAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api">
         <mat-card-content>
           <p>
-            The Himalayas is a mountain range in Asia.
+            Set on the desert planet Arrakis, Dune is the story of the boy Paul Atreides, heir to a noble family tasked with ruling
+            an inhospitable world where the only thing of value is the “spice” melange, a drug capable of extending life and
+            enhancing consciousness. Coveted across the known universe, melange is a prize worth killing for...
           </p>
         </mat-card-content>
-        <mat-card-actions>
-          <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
-        </mat-card-actions>
+
       </mat-card>
     </div>
   </div>

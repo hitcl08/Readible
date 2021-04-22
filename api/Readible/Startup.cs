@@ -21,6 +21,8 @@ using Readible.Domain.Models;
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication;
+using Readible.Helpers;
 
 namespace Readible
 {
@@ -45,6 +47,10 @@ namespace Readible
 
             services.AddDbContext<ReadibleContext>(options => options.UseSqlServer(_connectionString)
             .EnableSensitiveDataLogging());
+
+            services.AddAuthentication("BasicAuthentication")
+             .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISubscriptionService, SubscriptionService>();
@@ -103,6 +109,13 @@ namespace Readible
 
             app.UseRouting();
 
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

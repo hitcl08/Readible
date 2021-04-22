@@ -17,5 +17,6 @@ namespace Readible.Domain.Interfaces
         Task<bool> AddUser(string username, string password);
         Task<bool> DeleteUser(int id);
         Task<bool> UpdateUserPassword(string username, string password);
+        User Authenticate(string username, string password);
     }
 }

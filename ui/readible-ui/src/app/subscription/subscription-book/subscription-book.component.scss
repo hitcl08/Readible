@@ -1,0 +1,35 @@
+mat-card img {
+  object-fit: cover;
+  width: 14%;
+  height: 14%;
+  padding-left: 29px;
+  padding-top: 40px;
+}
+
+mat-card mat-card-actions {
+  position: absolute;
+  right: 20px;
+  top: 7px;
+}
+
+mat-card mat-card-header {
+  padding-left: 29px;
+}
+
+mat-card mat-card-content {
+  padding-left: 45px;
+  // padding-top: 30px;
+}
+
+.rating {
+  display: flex;
+  padding-left: 40px;
+}
+.card-container {
+  display: flex;
+  // justify-content: space-between;
+}
+
+.book-list-container {
+  padding-top: 10px;
+}

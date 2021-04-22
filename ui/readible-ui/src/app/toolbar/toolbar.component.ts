@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {NavEnum} from '../enums/nav.enum';
+import { AppState } from '../app.state';
+import { NavEnum } from '../enums/nav.enum';
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
@@ -9,12 +11,12 @@ import {NavEnum} from '../enums/nav.enum';
 export class ToolbarComponent implements OnInit {
   public navEnum = NavEnum;
 
-  constructor(private router: Router) { }
+  constructor(public appState: AppState, private router: Router, private authService: AuthService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
-  onNavClick(page:NavEnum): void {
+  public onNavClick(page: NavEnum): void {
     switch (page) {
       case this.navEnum.Books:
         this.router.navigate(['/books']);
@@ -26,5 +28,12 @@ export class ToolbarComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  public logout(): void {
+    this.authService.isAuthenticated = false;
+    this.appState.token = '';
+    this.appState.showToolbar = false;
+    this.router.navigate(['login']);
   }
 }

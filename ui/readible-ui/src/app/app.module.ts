@@ -14,7 +14,11 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import {AuthService} from './services/auth.service';
 import { BookCardComponent } from './books/book-card/book-card.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
+import { SubscriptionBookComponent } from './subscription/subscription-book/subscription-book.component';
+import { ErrorHandlerService } from './services/error-handler.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AppState } from './app.state';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +27,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     BooksComponent,
     SubscriptionComponent,
     ToolbarComponent,
-    BookCardComponent
+    BookCardComponent,
+    SubscriptionBookComponent
   ],
   imports: [
     BrowserModule,
@@ -32,10 +37,18 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    HttpClientModule,
   ],
   providers: [
-    AuthService
+    AuthService,
+    ErrorHandlerService,
+    AppState,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
