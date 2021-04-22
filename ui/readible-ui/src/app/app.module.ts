@@ -9,9 +9,11 @@ import { LoginComponent } from './login/login.component';
 import { BooksComponent } from './books/books.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { MaterialModule } from './material-module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import {AuthService} from './services/auth.service';
+import { BookCardComponent } from './books/book-card/book-card.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -20,14 +22,17 @@ import {AuthService} from './services/auth.service';
     LoginComponent,
     BooksComponent,
     SubscriptionComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    BookCardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule
   ],
   providers: [
     AuthService
