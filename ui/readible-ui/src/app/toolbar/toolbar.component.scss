@@ -1,3 +1,20 @@
-.spacer {
+
+
+.e-logo {
+  background: url(../../assets/logo.png) no-repeat center bottom;
+  background-size: 64px 50px;
+  // position: absolute;
+  width: 65px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+
+.example-spacer {
   flex: 1 1 auto;
+}
+
+.heading {
+  font-weight: 600;
+  margin-right: 10px;
 }

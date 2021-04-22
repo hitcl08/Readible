@@ -11,6 +11,8 @@ import { SubscriptionComponent } from './subscription/subscription.component';
 import { MaterialModule } from './material-module';
 import { FormsModule } from '@angular/forms';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import {AuthService} from './services/auth.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +29,9 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     MaterialModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
