@@ -1,14 +1,37 @@
-<mat-toolbar>
-  <button mat-icon-button class="menu-icon" [matMenuTriggerFor]="menu">
+<!-- <mat-toolbar>
+  <div class="e-logo" aria-hidden="true"></div>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon>menu</mat-icon>
   </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item>Item 1</button>
-    <button mat-menu-item>Item 2</button>
-  </mat-menu>
-  <span>Readible</span>
-  <span class="spacer"></span>
-  <button mat-icon-button class="logout-icon">
-    <mat-icon>logout</mat-icon>
+  <span>My App</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>favorite</mat-icon>
   </button>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon>share</mat-icon>
+  </button>
+</mat-toolbar> -->
+
+<mat-toolbar>
+  <mat-toolbar-row>
+    <div class="e-logo" aria-hidden="true"></div>
+
+    <h1 class="heading"> readible </h1>
+    <!-- <span class="menu-spacer"></span> -->
+    <div>
+      <a mat-button [routerLink]="'/subscription'"> My Subscription </a>
+      <a mat-button [routerLink]="'/books'"> Books </a>
+
+    </div>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon">
+      <mat-icon>settings</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon">
+      <mat-icon>logout</mat-icon>
+    </button>
+
+  </mat-toolbar-row>
+
 </mat-toolbar>
