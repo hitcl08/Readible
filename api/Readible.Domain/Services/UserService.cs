@@ -1,4 +1,6 @@
-﻿using Readible.Domain.Interfaces;
+﻿using BC = BCrypt.Net.BCrypt;
+
+using Readible.Domain.Interfaces;
 using Readible.Domain.Models;
 using Readible.Helpers;
 using System.Collections.Generic;
@@ -25,9 +27,12 @@ namespace Readible.Domain.Services
 
             var newUser = new User
             {
-                Password = password,
+                Password = BC.HashPassword(password),
                 Username = username,
-                Subscription = new Subscription() // new user begins without a subscription
+                Subscription = new Subscription { 
+                    Books = new List<Book>(),
+                }
+                // new user begins without a subscription
             };
 
             return await _userRepository.AddUser(newUser);
@@ -37,8 +42,10 @@ namespace Readible.Domain.Services
         {
             var user = _userRepository.GetUserByUsername(username);
 
+            var verified = BC.Verify(password, user.Password);
+
             // return null if user not found or password incorrect
-            if (user == null || user.Password != password)
+            if (!verified)
                 return null;
 
             // authentication successful so return user details without password
@@ -57,11 +64,13 @@ namespace Readible.Domain.Services
 
         public User GetUserByUsername(string username)
         {
-            return _userRepository.GetUserByUsername(username);
+            var user = _userRepository.GetUserByUsername(username);
+            return user.WithoutPassword();
         }
 
         public async Task<List<User>> GetUsers()
         {
+
             return await _userRepository.GetUsers();
         }
 

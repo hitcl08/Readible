@@ -29,7 +29,17 @@ export class AuthService {
       );
   }
 
-  public getUserId(){
-
+  public getUserId(username: string): Observable<any>  {
+    return this.httpClient.get(`${environment.readibleApiUri}/users/${username}`)
+      .pipe(
+        catchError(this.errorHandlerService.handleError)
+      );
   }
+
+  public generateBasicToken(username: string, password: string): string {
+    const token = `${username}:${password}`;
+    const hash = btoa(token);
+    return `Basic ${hash}`;
+  }
+
 }

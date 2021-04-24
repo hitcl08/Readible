@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppState } from '../app.state';
 import { AuthService } from '../services/auth.service';
+import { SubscriptionService } from '../services/subscription.service';
 
 @Component({
   selector: 'app-login',
@@ -14,30 +15,44 @@ export class LoginComponent implements OnInit {
   public username = '';
   public password = '';
   public loginFailed = false;
+  isLoading: boolean;
 
-  constructor(private router: Router, private authService: AuthService, private appState: AppState) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private appState: AppState,
+    private subscriptionService: SubscriptionService) { }
 
   ngOnInit(): void {
   }
 
   public onSubmit(): void {
-    this.appState.token = this.generateBasicToken();
+    this.appState.isLoading = true;
+    this.appState.token = this.authService.generateBasicToken(this.username, this.password);
+
     this.authService.login().subscribe((res) => {
       if (res.length > 0) {
+        this.isLoading = true;
         this.authService.isAuthenticated = true;
-        this.appState.showToolbar = true;
         this.loginFailed = false;
-        this.router.navigate(['/subscription']);
+        this.authService.getUserId(this.username).subscribe((res: any) => {
+          this.appState.userId = res.id;
+          this.appState.subscriptionId = res.subscription?.id
+          console.log(res)
+
+          this.subscriptionService.getUserSubscription(this.appState.userId).subscribe(res => {
+
+            this.appState.subscriptionId = res.id;
+            this.router.navigate(['/subscription']);
+            this.isLoading = false;
+            this.appState.showToolbar = true;
+
+          })
+        })
       }
     }, () => {
       this.authService.isAuthenticated = false;
       this.loginFailed = true;
     });
-  }
-
-  private generateBasicToken(): string {
-    const token = `${this.username}:${this.password}`;
-    const hash = btoa(token);
-    return `Basic ${hash}`;
   }
 }

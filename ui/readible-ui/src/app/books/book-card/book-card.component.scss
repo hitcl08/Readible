@@ -1,9 +1,9 @@
 .content {
-  padding: 16px;
+  padding: 5px;
 }
 
 .content > mat-card {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 .book-card-item {
@@ -12,6 +12,53 @@
 
 mat-card-actions {
   position: absolute;
-  right: 7px;
-  top: 11px;
+  right: 144px;
+  top: -2px;
+}
+
+.mat-card-actions {
+  margin-left: -8px;
+  margin-right: -8px;
+  padding: 8px 0;
+  left: -7px;
+}
+.mat-card-header .mat-card-title {
+  margin-bottom: 12px;
+  width: 195px;
+}
+
+.text-oneline {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100px;
+  font-style: italic;
+
+}
+
+mat-card-header-text {
+  margin: 0 -5px;
+}
+
+.app p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 8;
+  -webkit-box-orient: vertical;
+  font-size: 12px;
+}
+
+.mat-card-content {
+  display: flex;
+  margin-bottom: 16px;
+  // width: 10;
+}
+
+.mat-card-header .mat-card-title {
+  font-size: 14px;
+}
+
+.book-title {
+  width: 10px;
 }

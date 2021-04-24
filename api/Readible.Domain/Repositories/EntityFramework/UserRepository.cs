@@ -69,6 +69,10 @@ namespace Readible.Domain.Repositories.EntityFramework
         public async Task<bool> UpdateUserPassword(string username, string userPassword)
         {
             var existingUser = _context.Users.Where(x => x.Username == username).FirstOrDefault();
+            if (existingUser == null)
+            {
+                return false;
+            }
             existingUser.Password = userPassword;
             await _context.SaveChangesAsync();
 

@@ -58,7 +58,25 @@ namespace Readible.Domain.Repositories.EntityFramework
             return deletedSub != null;
         }
 
-        public Subscription GetSubscription(int userId)
+        public Subscription GetSubscriptionBySubscriptionId(int subscriptionId)
+        {
+            var subscriptionViewModel = _context.SubscriptionBooks
+                //.Where(x => x.SubscriptionId == subscriptionId)
+                .Join(
+                _context.Books,
+                s => s.BookId,
+                b => b.Id,
+                (s,b)=> new SubscriptionViewModel
+                {
+                    Id = s.SubscriptionId,
+                    SubscriptionBooks = b.SubscriptionBooks.ToList(),
+                })
+                .FirstOrDefault();
+
+            return _mapper.Map<SubscriptionViewModel, Subscription>(subscriptionViewModel);
+        }
+
+        public Subscription GetSubscriptionByUserId(int userId)
         {
             var subscriptionViewModel = _context.Subscriptions
                 .Where(x => x.UserId == userId)
@@ -66,6 +84,7 @@ namespace Readible.Domain.Repositories.EntityFramework
 
             return _mapper.Map<SubscriptionViewModel, Subscription>(subscriptionViewModel);
         }
+
 
         public async Task<List<Subscription>> GetSubscriptions()
         {

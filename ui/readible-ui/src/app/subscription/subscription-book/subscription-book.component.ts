@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AppState } from 'src/app/app.state';
+import { Book } from 'src/app/models/book';
+import { BookService } from 'src/app/services/book.service';
+import { SubscriptionService } from 'src/app/services/subscription.service';
 
 @Component({
   selector: 'app-subscription-book',
@@ -8,26 +12,33 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class SubscriptionBookComponent implements OnInit {
 
-  @Input('rating') private rating: number = 3;
-  @Input('starCount') private starCount: number = 5;
-  @Input('color') private color: string = 'accent';
-  @Output() private ratingUpdated = new EventEmitter();
+  @Input() private rating: number;
+  @Input() private starCount = 5;
 
-  private snackBarDuration: number = 2000;
+  @Input() public book: Book;
+
   public ratingArr = [];
-
-  constructor(private snackBar: MatSnackBar) {
+  constructor(
+    private snackBar: MatSnackBar,
+    private appState: AppState,
+    private subscriptionService: SubscriptionService,
+    private bookService: BookService) {
   }
 
 
-  ngOnInit() {
-    console.log("a " + this.starCount)
+  public ngOnInit(): void {
+    console.log(this.book)
+    this.rating = this.book.rating;
+
+    this.appState.showToolbar = true;
+
     for (let index = 0; index < this.starCount; index++) {
       this.ratingArr.push(index);
     }
   }
 
-  showIcon(index: number) {
+
+  public showIcon(index: number): string {
     if (this.rating >= index + 1) {
       return 'star';
     } else {

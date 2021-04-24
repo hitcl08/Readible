@@ -33,7 +33,7 @@ namespace Readible.Domain.Services
         public async Task<bool> AddBookToSubscription(int subscriptionId, int bookId)
         {
             var book = _bookRepository.GetBook(bookId);
-            var subscription = _subscriptionRepository.GetSubscription(subscriptionId);
+            var subscription = _subscriptionRepository.GetSubscriptionBySubscriptionId(subscriptionId);
 
             // if book already exists in subscription AND subscription does not exist
             if (book != null && subscription == null)
@@ -56,7 +56,7 @@ namespace Readible.Domain.Services
 
         public async Task<List<Book>> GetBooksBySubscription(int subscriptionId)
         {
-            var subscription = _subscriptionRepository.GetSubscription(subscriptionId);
+            var subscription = _subscriptionRepository.GetSubscriptionBySubscriptionId(subscriptionId);
             if (subscription == null)
             {
                 return new List<Book>();
@@ -77,7 +77,7 @@ namespace Readible.Domain.Services
 
         public async Task<bool> RemoveBookFromSubscription(int subscriptionId, int bookId)
         {
-            var subscription = _subscriptionRepository.GetSubscription(subscriptionId);
+            var subscription = _subscriptionRepository.GetSubscriptionBySubscriptionId(subscriptionId);
             var book = _bookRepository.GetBook(bookId);
 
             if (subscription == null || book == null)

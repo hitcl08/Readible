@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Readible.Domain.Interfaces;
 using Readible.Domain.Models;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Readible.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class BooksController : ControllerBase
@@ -49,7 +51,7 @@ namespace Readible.Controllers
             var book = _mapper.Map<BookRequest, Book>(request);
             var isSuccessfull = await _bookService.AddBook(book);
 
-            return isSuccessfull ? Ok(isSuccessfull) : BadRequest(isSuccessfull);
+            return isSuccessfull ? Created("book", isSuccessfull) : BadRequest(isSuccessfull);
         }
 
         [HttpPost("{bookId}/subscriptions/{subscriptionId}")]

@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Readible.Domain.Interfaces;
 using Readible.Requests;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Readible.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class SubscriptionsController : ControllerBase
@@ -37,7 +36,7 @@ namespace Readible.Controllers
             return Ok(result);
         }
 
-        [HttpPost("user")]
+        [HttpPost("users")]
         public async Task<IActionResult> Post([FromBody] SubscriptionRequest request)
         {
             var result = await _subscriptionService.AddUserSubscription(request.UserId);
@@ -45,7 +44,7 @@ namespace Readible.Controllers
             {
                 return BadRequest(result);
             }
-            return Ok(result);
+            return Created("subscription", result);
         }
 
         [HttpDelete("users/{id}")]

@@ -15,7 +15,10 @@ namespace Readible.Helpers
 
         public static User WithoutPassword(this User user)
         {
-            user.Password = null;
+            if (user != null)
+            {
+                user.Password = null;
+            }
             return user;
         }
     }

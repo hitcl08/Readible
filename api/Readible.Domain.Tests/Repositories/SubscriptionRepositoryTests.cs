@@ -80,7 +80,7 @@ namespace Readible.Domain.Tests.Repositories
             var userId = 1;
 
             // act
-            var subscription = _subscriptionRepository.GetSubscription(userId);
+            var subscription = _subscriptionRepository.GetSubscriptionBySubscriptionId(userId);
 
             // assert
             Assert.NotNull(subscription);
@@ -93,7 +93,7 @@ namespace Readible.Domain.Tests.Repositories
             var userId = -1;
 
             // act
-            var subscription = _subscriptionRepository.GetSubscription(userId);
+            var subscription = _subscriptionRepository.GetSubscriptionBySubscriptionId(userId);
 
             // assert
             Assert.Null(subscription);

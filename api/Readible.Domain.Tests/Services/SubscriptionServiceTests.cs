@@ -43,7 +43,7 @@ namespace Readible.Domain.Tests.Services
         public void GetSubscription_ReturnsSubscriptionForUser_WhenValidUserId()
         {
             // arrange
-            _subscriptionRepositoryMock.Setup(x => x.GetSubscription(It.IsAny<int>())).Returns(MockData.Subscriptions.GetValidSubscription());
+            _subscriptionRepositoryMock.Setup(x => x.GetSubscriptionBySubscriptionId(It.IsAny<int>())).Returns(MockData.Subscriptions.GetValidSubscription());
             _userServiceMock.Setup(x => x.GetUserByUsername(It.IsAny<string>())).Returns(MockData.Users.GetValidUser());
 
             // act

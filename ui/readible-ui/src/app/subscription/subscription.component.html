@@ -1,6 +1,6 @@
 <div class="subscription-books-container">
-  <app-subscription-book></app-subscription-book>
-  <app-subscription-book></app-subscription-book>
-  <app-subscription-book></app-subscription-book>
-  <app-subscription-book></app-subscription-book>
+  <div *ngFor="let book of books">
+    <app-subscription-book [book]="book"></app-subscription-book>
+
+  </div>
 </div>

@@ -1,34 +1,23 @@
 <div layout="row" layout-align="center center" class="book-list-container">
   <mat-card class="card-container">
     <img mat-card-image
-      src="http://books.google.com/books/content?id=ydQiDQAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api">
+      src={{book.imageUrl}}>
 
-    <div>
-      <mat-card-header>
-        <mat-card-title>Dune</mat-card-title>
-        <mat-card-subtitle>Frank Herbert</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>Set on the desert planet Arrakis, Dune is the story of the boy Paul Atreides, heir to a noble
-        family tasked with ruling
-        an inhospitable world where the only thing of value is the “spice” melange, a drug capable of extending life and
-        enhancing consciousness. Coveted across the known universe, melange is a prize worth killing for...
+    <mat-card-header>
+      <mat-card-title>{{book.name}}</mat-card-title>
+      <mat-card-subtitle>{{book.author}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>{{book.description}}
+    </mat-card-content>
 
-        When House Atreides is betrayed, the destruction of Paul’s family will set the boy on a journey toward a destiny
-        greater
-        than he could ever have imagined. And as he evolves into the mysterious man known as Muad’Dib, he will bring to
-        fruition
-        humankind’s most ancient and unattainable dream
-      </mat-card-content>
-
-      <div class="rating">
-        <div mat-icon-button *ngFor="let ratingId of ratingArr;index as i" [id]="'star_'+i">
-          <mat-icon>
-            {{showIcon(i)}}
-          </mat-icon>
-        </div>
+    <div class="rating">
+      <div mat-icon-button *ngFor="let ratingId of ratingArr;index as i" [id]="'star_'+i">
+        <mat-icon>
+          {{showIcon(i)}}
+        </mat-icon>
       </div>
-
     </div>
+
 
     <mat-card-actions>
       <button mat-button matTooltip="Remove from subscription">

@@ -1,0 +1,103 @@
+{
+	"info": {
+		"_postman_id": "35cfe655-9942-4b89-8c05-64d55f7bb937",
+		"name": "books",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Google",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"\r",
+							"var title = '\"'+jsonData.items[0].volumeInfo.title+'\"';\r",
+							"var author = '\"'+jsonData.items[0].volumeInfo.authors[0]+'\"';\r",
+							"var description =  '\"'+jsonData.items[0].volumeInfo.description+'\"';\r",
+							"var imageLink =   '\"'+jsonData.items[0].volumeInfo.imageLinks.thumbnail+'\"';\r",
+							"var rating = Math.floor(Math.random() * 5) + 1 ;\r",
+							"\r",
+							"postman.setGlobalVariable(\"title\", title);\r",
+							"postman.setGlobalVariable(\"author\", author);\r",
+							"postman.setGlobalVariable(\"description\", description);\r",
+							"postman.setGlobalVariable(\"imageLink\", imageLink);\r",
+							"postman.setGlobalVariable(\"rating\", rating);\r",
+							"\r",
+							"postman.setNextRequest(\"add_books\");\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.googleapis.com/books/v1/volumes?q={{csv_Title}}",
+					"protocol": "https",
+					"host": [
+						"www",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"books",
+						"v1",
+						"volumes"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{csv_Title}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add_books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": {{title}},\r\n  \"author\": {{author}},\r\n  \"rating\": {{rating}},\r\n  \"imageUrl\": {{imageLink}},\r\n  \"description\": {{description}}\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/books",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

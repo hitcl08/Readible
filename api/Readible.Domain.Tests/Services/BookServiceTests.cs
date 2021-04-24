@@ -33,7 +33,7 @@ namespace Readible.Domain.Tests.Services
             // arrange
             _booksRepositoryMock.Setup(x => x.GetBook(It.IsAny<int>())).Returns(MockData.Books.GetInvalidBook());
             _booksRepositoryMock.Setup(x => x.AddBookToSubscription(It.IsAny<int>(), It.IsAny<int>())).ReturnsAsync(true);
-            _subscriptionRepositoryMock.Setup(x => x.GetSubscription(It.IsAny<int>())).Returns(MockData.Subscriptions.GetValidSubscription);
+            _subscriptionRepositoryMock.Setup(x => x.GetSubscriptionBySubscriptionId(It.IsAny<int>())).Returns(MockData.Subscriptions.GetValidSubscription);
             
             // act
             var isSuccessful = await _bookService.AddBookToSubscription(1,1);
@@ -47,7 +47,7 @@ namespace Readible.Domain.Tests.Services
         {
             // arrange
             _booksRepositoryMock.Setup(x => x.GetBook(It.IsAny<int>())).Returns(MockData.Books.GetInvalidBook());
-            _subscriptionRepositoryMock.Setup(x => x.GetSubscription(It.IsAny<int>())).Returns(MockData.Subscriptions.GetValidSubscription);
+            _subscriptionRepositoryMock.Setup(x => x.GetSubscriptionBySubscriptionId(It.IsAny<int>())).Returns(MockData.Subscriptions.GetValidSubscription);
 
             // act
             var isSuccessful = await _bookService.AddBookToSubscription(-1,1);
@@ -61,7 +61,7 @@ namespace Readible.Domain.Tests.Services
         {
             // arrange
             _booksRepositoryMock.Setup(x => x.GetBook(It.IsAny<int>())).Returns(MockData.Books.GetValidBook());
-            _subscriptionRepositoryMock.Setup(x => x.GetSubscription(It.IsAny<int>())).Returns(MockData.Subscriptions.GetInvalidSubscription);
+            _subscriptionRepositoryMock.Setup(x => x.GetSubscriptionBySubscriptionId(It.IsAny<int>())).Returns(MockData.Subscriptions.GetInvalidSubscription);
 
             // act
             var isSuccessful = await _bookService.AddBookToSubscription(1,-1);
@@ -76,7 +76,7 @@ namespace Readible.Domain.Tests.Services
         {
             // arrange
             _booksRepositoryMock.Setup(x => x.GetBook(It.IsAny<int>())).Returns(MockData.Books.GetValidBook());
-            _subscriptionRepositoryMock.Setup(x => x.GetSubscription(It.IsAny<int>())).Returns(MockData.Subscriptions.GetValidSubscription);
+            _subscriptionRepositoryMock.Setup(x => x.GetSubscriptionBySubscriptionId(It.IsAny<int>())).Returns(MockData.Subscriptions.GetValidSubscription);
 
             // act
             var isSuccessful = await _bookService.AddBookToSubscription(1,1);
@@ -156,7 +156,7 @@ namespace Readible.Domain.Tests.Services
         {
             // arrange
             _booksRepositoryMock.Setup(x => x.GetBooks(It.IsAny<int>())).ReturnsAsync(MockData.Books.GetValidBooks());
-            _subscriptionRepositoryMock.Setup(x => x.GetSubscription(It.IsAny<int>())).Returns(MockData.Subscriptions.GetValidSubscription);
+            _subscriptionRepositoryMock.Setup(x => x.GetSubscriptionBySubscriptionId(It.IsAny<int>())).Returns(MockData.Subscriptions.GetValidSubscription);
 
             // act
             var books = await _bookService.GetBooksBySubscription(1);
@@ -170,7 +170,7 @@ namespace Readible.Domain.Tests.Services
         {
             // arrange
             _booksRepositoryMock.Setup(x => x.GetBooks(It.IsAny<int>())).ReturnsAsync(new List<Book>());
-            _subscriptionRepositoryMock.Setup(x => x.GetSubscription(It.IsAny<int>())).Returns(MockData.Subscriptions.GetInvalidSubscription);
+            _subscriptionRepositoryMock.Setup(x => x.GetSubscriptionBySubscriptionId(It.IsAny<int>())).Returns(MockData.Subscriptions.GetInvalidSubscription);
 
             // act
             var books = await _bookService.GetBooksBySubscription(-1);
@@ -212,7 +212,7 @@ namespace Readible.Domain.Tests.Services
         {
             // arrange
             _booksRepositoryMock.Setup(x => x.GetBook(It.IsAny<int>())).Returns(MockData.Books.GetValidBook);
-            _subscriptionRepositoryMock.Setup(x => x.GetSubscription(It.IsAny<int>())).Returns(MockData.Subscriptions.GetValidSubscription);
+            _subscriptionRepositoryMock.Setup(x => x.GetSubscriptionBySubscriptionId(It.IsAny<int>())).Returns(MockData.Subscriptions.GetValidSubscription);
             _booksRepositoryMock.Setup(x => x.RemoveBookFromSubscription(It.IsAny<int>(), It.IsAny<int>())).ReturnsAsync(true);
 
             // act
@@ -227,7 +227,7 @@ namespace Readible.Domain.Tests.Services
         {
             // arrange
             _booksRepositoryMock.Setup(x => x.GetBook(It.IsAny<int>())).Returns(MockData.Books.GetValidBook);
-            _subscriptionRepositoryMock.Setup(x => x.GetSubscription(It.IsAny<int>())).Returns(MockData.Subscriptions.GetInvalidSubscription);
+            _subscriptionRepositoryMock.Setup(x => x.GetSubscriptionBySubscriptionId(It.IsAny<int>())).Returns(MockData.Subscriptions.GetInvalidSubscription);
             _booksRepositoryMock.Setup(x => x.RemoveBookFromSubscription(It.IsAny<int>(), It.IsAny<int>())).ReturnsAsync(false);
 
             // act
@@ -243,7 +243,7 @@ namespace Readible.Domain.Tests.Services
             // arrange
             _booksRepositoryMock.Setup(x => x.GetBook(It.IsAny<int>())).Returns(MockData.Books.GetInvalidBook);
             _booksRepositoryMock.Setup(x => x.RemoveBookFromSubscription(It.IsAny<int>(), It.IsAny<int>())).ReturnsAsync(false);
-            _subscriptionRepositoryMock.Setup(x => x.GetSubscription(It.IsAny<int>())).Returns(MockData.Subscriptions.GetValidSubscription);
+            _subscriptionRepositoryMock.Setup(x => x.GetSubscriptionBySubscriptionId(It.IsAny<int>())).Returns(MockData.Subscriptions.GetValidSubscription);
 
             // act
             var isSuccessful = await _bookService.RemoveBookFromSubscription(-1, 1);

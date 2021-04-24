@@ -19,6 +19,10 @@ import { ErrorHandlerService } from './services/error-handler.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppState } from './app.state';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { UserService} from './services/user.service';
+import { SubscriptionService } from './services/subscription.service';
+import { BookService} from './services/book.service';
+import { CanAccessAuthGuard} from './auth.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,12 +47,16 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
   providers: [
     AuthService,
     ErrorHandlerService,
+    UserService,
+    SubscriptionService,
+    BookService,
     AppState,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    CanAccessAuthGuard
   ],
   bootstrap: [AppComponent]
 })

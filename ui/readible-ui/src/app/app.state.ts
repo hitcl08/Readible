@@ -6,5 +6,8 @@ import { EventEmitter, Injectable } from '@angular/core';
 export class AppState {
 
   public showToolbar = false;
+  public isLoading = false;
   public token = '';
+  userId: any;
+  subscriptionId: any;
 }

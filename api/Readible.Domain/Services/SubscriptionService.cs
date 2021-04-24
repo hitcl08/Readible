@@ -33,14 +33,14 @@ namespace Readible.Domain.Services
 
         public async Task<bool> DeleteSubscription(int subscriptionId)
         {
-            var subscription = _subscriptionRepository.GetSubscription(subscriptionId);
+            var subscription = _subscriptionRepository.GetSubscriptionBySubscriptionId(subscriptionId);
             return subscription != null && await _subscriptionRepository.DeleteBySubscriberId(subscription.Id);
         }
 
         public Subscription GetUserSubscription(int userId)
         {
             var user = _userService.GetUserById(userId);
-            return user != null ? _subscriptionRepository.GetSubscription(user.Id) : null;
+            return user != null ? _subscriptionRepository.GetSubscriptionByUserId(user.Id) : null;
         }
 
         public async Task<List<Subscription>> GetAllSubscriptions()

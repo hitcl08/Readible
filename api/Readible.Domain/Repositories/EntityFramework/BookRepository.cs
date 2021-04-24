@@ -27,6 +27,7 @@ namespace Readible.Domain.Repositories.EntityFramework
             var bookViewModel = new BookViewModel
             {
                 Name = book.Name,
+                Author = book.Author,
                 Description = book.Description,
                 ImageUrl = book.ImageUrl,
                 Rating = book.Rating,
@@ -64,10 +65,30 @@ namespace Readible.Domain.Repositories.EntityFramework
 
         public async Task<List<Book>> GetBooks(int subscriptionId)
         {
-            var bookViewModel = await _context.Books
-                .Where(x => x.SubscriptionBooks
-                .Any(s => s.SubscriptionId == subscriptionId))
-                .ToListAsync();
+            var bookViewModel = _context.SubscriptionBooks.Join(
+                _context.Books,
+                sb => sb.BookId,
+                b => b.Id,
+                (b, sb) => new
+                {
+                    Id = sb.Id,
+                    Author = sb.Author,
+                    Description = sb.Description,
+                    ImageUrl = sb.ImageUrl,
+                    Rating = sb.Rating,
+                    Name = sb.Name,
+                    SubscriptionId = b.SubscriptionId
+                })
+                .Where(x => x.SubscriptionId == subscriptionId)
+                .Select(x => new BookViewModel
+                {
+                    Id = x.Id,
+                    Author = x.Author,
+                    Description = x.Description,
+                    ImageUrl = x.ImageUrl,
+                    Name = x.Name,
+                    Rating = x.Rating
+                }).ToList();
 
             var bookList = _mapper.Map<List<BookViewModel>, List<Book>>(bookViewModel);
             return bookList;
@@ -79,7 +100,7 @@ namespace Readible.Domain.Repositories.EntityFramework
 
             var deletedBook = _context.Books.Remove(bookToDelete);
             await _context.SaveChangesAsync();
-            
+
             return deletedBook != null;
         }
 

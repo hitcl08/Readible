@@ -2,6 +2,12 @@
   width: 750px;
 }
 
+h3 {
+  left: 190px;
+  top: 600px;
+  position: absolute;
+}
+
 .container {
   padding-right: 15px;
   padding-left: 15px;
@@ -66,10 +72,9 @@ h1.e-modal-heading {
   text-align: center;
 }
 
-.title{
+.title {
   position: fixed;
   color: #34657f;
-
 }
 
 .credential-container {

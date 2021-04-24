@@ -29,16 +29,6 @@ namespace Readible.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult Get([FromRoute]int id)
-        {
-            var result = _userService.GetUserById(id);
-            if (result == null)
-            {
-                return BadRequest(result);
-            }
-            return Ok(result);
-        }
 
         [HttpGet("{username}")]
         public  IActionResult Get([FromRoute] string username)
@@ -51,6 +41,7 @@ namespace Readible.Controllers
             return Ok(result);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] UserRequest request)
         {
