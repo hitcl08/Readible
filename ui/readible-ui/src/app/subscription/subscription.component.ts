@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import { AppState } from '../app.state';
 import { Book } from '../models/book';
 import { BookService } from '../services/book.service';
@@ -11,9 +10,10 @@ import { SubscriptionService } from '../services/subscription.service';
   templateUrl: './subscription.component.html',
   styleUrls: ['./subscription.component.scss']
 })
-export class SubscriptionComponent implements OnInit {
+export class SubscriptionComponent implements OnInit, OnChanges {
   @Input() public books: Book[] = []
-
+  public showPopup = false;
+  public subscriptionHasBooks = false;
   constructor(
     private snackBar: MatSnackBar,
     private appState: AppState,
@@ -22,7 +22,31 @@ export class SubscriptionComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.appState.isLoading = true;
     this.loadSubscription();
+  }
+
+  public ngOnChanges(): void{
+    this.subscriptionHasBooks = this.books.length > 0;
+  }
+
+  public deleteBookFromSubscription(book: Book): void {
+    this.appState.isLoading = true;
+    this.bookService.deleteBookFromSubscription(book.id, this.appState.subscriptionId).subscribe(isDeleted => {
+      if (isDeleted) {
+        this.books = this.books.filter(b => b.id !== book.id);
+        this.appState.isLoading = false;
+        this.openPopup(`'${book.name}' has been removed from your subscription`);
+      }
+    });
+  }
+
+  private openPopup(message: string): void {
+    this.snackBar.open(message, 'X', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: ['popup']
+    }).afterDismissed().subscribe(() => this.showPopup = false);
   }
 
   private loadSubscription(): void {
@@ -33,8 +57,8 @@ export class SubscriptionComponent implements OnInit {
           this.books.push(book);
         });
         this.appState.isLoading = false;
+        this.subscriptionHasBooks = this.books.length > 0;
       });
     });
-
   }
 }

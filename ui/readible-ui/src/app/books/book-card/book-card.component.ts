@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AppState } from 'src/app/app.state';
-import { Book } from 'src/app/models/book';
+import { BookCard } from 'src/app/models/book-card';
 import { BookService } from 'src/app/services/book.service';
 
 @Component({
@@ -10,29 +10,27 @@ import { BookService } from 'src/app/services/book.service';
   styleUrls: ['./book-card.component.scss']
 })
 export class BookCardComponent implements OnInit {
+  @Input() public books: BookCard[];
 
-  public books: Book[];
-  public isAdded: true;
   public showPopup = false;
 
-  constructor(private bookService: BookService,
+  constructor(
+    private bookService: BookService,
     private appState: AppState,
     private snackBar: MatSnackBar
-    ) { }
+  ) { }
 
-  ngOnInit(): void {
-    this.bookService.getBooks().subscribe(res => {
-      this.books = res;
-    })
-  }
+  ngOnInit(): void { }
 
-  public onAddToSubscription (book: Book): void {
-      this.bookService.addBookToSubscription(this.appState.subscriptionId, book.id).subscribe(res => {
-        this.isAdded = res
-        if (this.isAdded) {
-          this.openPopup(`${book.name} has been added to your subscription`)
-        }
-      })
+  public onAddToSubscription(bookCard: BookCard): void {
+    this.appState.isLoading = true;
+    this.bookService.addBookToSubscription(this.appState.subscriptionId, bookCard.book.id).subscribe(res => {
+      bookCard.isAdded = res;
+      if (bookCard.isAdded) {
+        this.appState.isLoading = false;
+        this.openPopup(`'${bookCard.book.name}' has been added to your subscription`);
+      }
+    });
   }
 
   private openPopup(message: string): void {

@@ -1,7 +1,15 @@
 <div layout="row" layout-align="center center" class="book-list-container">
   <mat-card class="card-container">
-    <img mat-card-image
-      src={{book.imageUrl}}>
+    <div>
+      <img mat-card-image src={{book.imageUrl}}>
+      <div class="rating">
+        <div mat-icon-button *ngFor="let ratingId of ratingArr;index as i" [id]="'star_'+i">
+          <mat-icon>
+            {{showIcon(i)}}
+          </mat-icon>
+        </div>
+      </div>
+    </div>
 
     <mat-card-header>
       <mat-card-title>{{book.name}}</mat-card-title>
@@ -10,18 +18,15 @@
     <mat-card-content>{{book.description}}
     </mat-card-content>
 
-    <div class="rating">
-      <div mat-icon-button *ngFor="let ratingId of ratingArr;index as i" [id]="'star_'+i">
-        <mat-icon>
-          {{showIcon(i)}}
-        </mat-icon>
-      </div>
-    </div>
+
 
 
     <mat-card-actions>
-      <button mat-button matTooltip="Remove from subscription">
+      <button mat-button matTooltip="Remove from subscription" class="delete-book" (click)="onDeleteBook(book)">
         <mat-icon>close</mat-icon>
+      </button>
+      <button mat-raised-button color="primary" class="readnow" (click)="onReadNowClick()">
+        READ NOW
       </button>
     </mat-card-actions>
   </mat-card>

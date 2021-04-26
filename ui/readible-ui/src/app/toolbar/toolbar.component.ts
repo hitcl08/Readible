@@ -9,25 +9,10 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
-  public navEnum = NavEnum;
 
   constructor(public appState: AppState, private router: Router, private authService: AuthService) { }
 
   public ngOnInit(): void {
-  }
-
-  public onNavClick(page: NavEnum): void {
-    switch (page) {
-      case this.navEnum.Books:
-        this.router.navigate(['/books']);
-        break;
-      case this.navEnum.Subscription:
-        this.router.navigate(['/subscription']);
-        break;
-
-      default:
-        break;
-    }
   }
 
   public logout(): void {

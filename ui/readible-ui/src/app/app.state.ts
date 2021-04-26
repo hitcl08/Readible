@@ -1,13 +1,13 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppState {
 
-  public showToolbar = false;
-  public isLoading = false;
+  public showToolbar: boolean;
+  public isLoading: boolean;
   public token = '';
-  userId: any;
-  subscriptionId: any;
+  public userId: number;
+  public subscriptionId: number;
 }

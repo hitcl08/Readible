@@ -12,10 +12,9 @@ import { SubscriptionService } from '../services/subscription.service';
 export class LoginComponent implements OnInit {
 
   public hide = true;
-  public username = '';
-  public password = '';
+  public username = 'liam';
+  public password = 'liam';
   public loginFailed = false;
-  isLoading: boolean;
 
   constructor(
     private router: Router,
@@ -29,29 +28,29 @@ export class LoginComponent implements OnInit {
   public onSubmit(): void {
     this.appState.isLoading = true;
     this.appState.token = this.authService.generateBasicToken(this.username, this.password);
+    this.tryLogin();
+  }
 
+  private tryLogin(): void {
     this.authService.login().subscribe((res) => {
       if (res.length > 0) {
-        this.isLoading = true;
         this.authService.isAuthenticated = true;
         this.loginFailed = false;
-        this.authService.getUserId(this.username).subscribe((res: any) => {
-          this.appState.userId = res.id;
-          this.appState.subscriptionId = res.subscription?.id
-          console.log(res)
+        this.authService.getUserId(this.username).subscribe((user: any) => {
+          this.appState.userId = user.id;
+          this.appState.subscriptionId = user.subscription?.id;
 
-          this.subscriptionService.getUserSubscription(this.appState.userId).subscribe(res => {
+          this.subscriptionService.getUserSubscription(this.appState.userId).subscribe(subscription => {
 
-            this.appState.subscriptionId = res.id;
+            this.appState.subscriptionId = subscription.id;
             this.router.navigate(['/subscription']);
-            this.isLoading = false;
             this.appState.showToolbar = true;
-
-          })
-        })
+          });
+        });
       }
     }, () => {
       this.authService.isAuthenticated = false;
+      this.appState.isLoading = false;
       this.loginFailed = true;
     });
   }

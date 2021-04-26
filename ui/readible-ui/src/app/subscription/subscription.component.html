@@ -1,6 +1,18 @@
 <div class="subscription-books-container">
-  <div *ngFor="let book of books">
-    <app-subscription-book [book]="book"></app-subscription-book>
+  <div class="heading">
+    <div *ngIf="subscriptionHasBooks">
+      <h1>My books:</h1>
+      <h3>Pick a book and begin reading now...</h3>
+    </div>
 
+    <div *ngIf="!subscriptionHasBooks" class="no-books">
+      <mat-icon>information</mat-icon>
+      <p>Add books to your subscription from the Readible catalogue to begin your reading journey...</p>
+    </div>
   </div>
+
+  <div *ngFor="let book of books">
+    <app-subscription-book [book]="book" (onDeleteBookEvent)="deleteBookFromSubscription(book)"></app-subscription-book>
+  </div>
+
 </div>

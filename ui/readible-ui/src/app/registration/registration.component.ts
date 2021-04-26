@@ -64,7 +64,7 @@ export class RegistrationComponent implements OnInit {
               this.appState.subscriptionId = res.id;
 
               this.authService.isAuthenticated = true;
-              this.router.navigate(['/subscription']);
+              this.router.navigate(['/books']);
 
               this.appState.showToolbar = true;
               this.appState.isLoading = false;

@@ -14,20 +14,16 @@ export class SubscriptionBookComponent implements OnInit {
 
   @Input() private rating: number;
   @Input() private starCount = 5;
-
   @Input() public book: Book;
 
   public ratingArr = [];
+  @Output() public onDeleteBookEvent = new EventEmitter<Book>();
   constructor(
-    private snackBar: MatSnackBar,
-    private appState: AppState,
-    private subscriptionService: SubscriptionService,
-    private bookService: BookService) {
-  }
+    public appState: AppState
+  ) { }
 
 
   public ngOnInit(): void {
-    console.log(this.book)
     this.rating = this.book.rating;
 
     this.appState.showToolbar = true;
@@ -37,6 +33,13 @@ export class SubscriptionBookComponent implements OnInit {
     }
   }
 
+  public onDeleteBook(book: Book): void {
+    this.onDeleteBookEvent.emit(book);
+  }
+
+  public onReadNowClick(): void {
+    console.log('Once upon a time in a galaxy far far away...');
+  }
 
   public showIcon(index: number): string {
     if (this.rating >= index + 1) {
@@ -45,4 +48,5 @@ export class SubscriptionBookComponent implements OnInit {
       return 'star_border';
     }
   }
+
 }
