@@ -5,6 +5,7 @@ import { CanAccessAuthGuard } from './auth.guard';
 import { BooksComponent } from './books/books.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { SettingsComponent } from './settings/settings.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 
 
@@ -14,6 +15,8 @@ const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'subscription', component: SubscriptionComponent, canActivate: [CanAccessAuthGuard] },
   { path: 'books', component: BooksComponent, canActivate: [CanAccessAuthGuard] },
+  { path: 'settings', component: SettingsComponent },
+
 ];
 
 @NgModule({

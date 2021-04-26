@@ -23,11 +23,9 @@ export class BookCardComponent implements OnInit {
   ngOnInit(): void { }
 
   public onAddToSubscription(bookCard: BookCard): void {
-    this.appState.isLoading = true;
     this.bookService.addBookToSubscription(this.appState.subscriptionId, bookCard.book.id).subscribe(res => {
       bookCard.isAdded = res;
       if (bookCard.isAdded) {
-        this.appState.isLoading = false;
         this.openPopup(`'${bookCard.book.name}' has been added to your subscription`);
       }
     });

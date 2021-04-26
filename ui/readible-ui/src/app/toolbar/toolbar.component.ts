@@ -21,4 +21,8 @@ export class ToolbarComponent implements OnInit {
     this.appState.showToolbar = false;
     this.router.navigate(['login']);
   }
+
+  public onSettingsClick(): void {
+    this.router.navigate(['settings']);
+  }
 }

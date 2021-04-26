@@ -94,11 +94,11 @@ namespace Readible.Domain.Tests.Services
         {
             //a rrange
             var userPassword = "hello";
-            var username = "jonny";
-            _userRepositoryMock.Setup(x => x.UpdateUserPassword(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(true);
+            var userId = 1;
+            _userRepositoryMock.Setup(x => x.UpdateUserPassword(It.IsAny<int>(), It.IsAny<string>())).ReturnsAsync(true);
 
             // act 
-            var result = await _userService.UpdateUserPassword(username, userPassword);
+            var result = await _userService.UpdateUserPassword(userId, userPassword);
 
             // assert
             Assert.True(result);

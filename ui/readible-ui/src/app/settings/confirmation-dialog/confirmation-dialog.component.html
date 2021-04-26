@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>
+  Confirm action
+</h1>
+
+<div mat-dialog-content>
+  <p>Are you sure you want to delete your account?</p>
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onDismiss()" cdkFocusInitial>No</button>
+  <button mat-raised-button color="primary" (click)="onConfirm()">Yes</button>
+</mat-dialog-actions>

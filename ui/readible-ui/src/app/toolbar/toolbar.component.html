@@ -1,24 +1,23 @@
-<div *ngIf="appState.showToolbar" >
-<mat-toolbar>
-  <mat-toolbar-row>
-    <div class="e-logo" aria-hidden="true"></div>
+<div *ngIf="appState.showToolbar">
+  <mat-toolbar>
+    <mat-toolbar-row>
+      <div class="e-logo" aria-hidden="true"></div>
 
-    <h1 class="heading"> readible </h1>
-    <!-- <span class="menu-spacer"></span> -->
-    <div>
-      <a mat-button [routerLink]="'/subscription'" routerLinkActive="active"> My Subscription </a>
-      <a mat-button [routerLink]="'/books'" routerLinkActive="active"> Books </a>
+      <h1 class="heading"> readible </h1>
+      <div>
+        <a mat-button [routerLink]="'/subscription'" routerLinkActive="active"> My Subscription </a>
+        <a mat-button [routerLink]="'/books'" routerLinkActive="active"> Books </a>
 
-    </div>
-    <span class="example-spacer"></span>
-    <button mat-icon-button class="example-icon">
-      <mat-icon>settings</mat-icon>
-    </button>
-    <button mat-icon-button class="example-icon" (click)="logout()">
-      <mat-icon>logout</mat-icon>
-    </button>
+      </div>
+      <span class="example-spacer"></span>
+      <button mat-icon-button class="example-icon" (click)="onSettingsClick()">
+        <mat-icon>settings</mat-icon>
+      </button>
+      <button mat-icon-button class="example-icon" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
 
-  </mat-toolbar-row>
+    </mat-toolbar-row>
 
-</mat-toolbar>
+  </mat-toolbar>
 </div>

@@ -1,5 +1,3 @@
-import {Subscription} from './subscription';
-
 export class Book {
   constructor(
     public id: number,

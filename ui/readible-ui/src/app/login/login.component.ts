@@ -12,21 +12,21 @@ import { SubscriptionService } from '../services/subscription.service';
 export class LoginComponent implements OnInit {
 
   public hide = true;
-  public username = 'liam';
-  public password = 'liam';
+  public username = '';
+  public password = '';
   public loginFailed = false;
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private appState: AppState,
-    private subscriptionService: SubscriptionService) { }
+    private subscriptionService: SubscriptionService
+  ) { }
 
   ngOnInit(): void {
   }
 
   public onSubmit(): void {
-    this.appState.isLoading = true;
     this.appState.token = this.authService.generateBasicToken(this.username, this.password);
     this.tryLogin();
   }
@@ -50,7 +50,6 @@ export class LoginComponent implements OnInit {
       }
     }, () => {
       this.authService.isAuthenticated = false;
-      this.appState.isLoading = false;
       this.loginFailed = true;
     });
   }

@@ -74,9 +74,10 @@ namespace Readible.Domain.Services
             return await _userRepository.GetUsers();
         }
 
-        public async Task<bool> UpdateUserPassword(string username, string password)
+        public async Task<bool> UpdateUserPassword(int userId, string password)
         {
-            return await _userRepository.UpdateUserPassword(username, password);
+            var encryptedPword = BC.HashPassword(password);
+            return await _userRepository.UpdateUserPassword(userId, encryptedPword);
         }
     }
 }

@@ -66,9 +66,9 @@ namespace Readible.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] UserRequest request)
+        public async Task<IActionResult> Put([FromBody] UpdateUserRequest request)
         {
-            var result = await _userService.UpdateUserPassword(request.Username, request.Password);
+            var result = await _userService.UpdateUserPassword(request.UserId, request.Password);
             if (!result)
             {
                 return BadRequest(result);

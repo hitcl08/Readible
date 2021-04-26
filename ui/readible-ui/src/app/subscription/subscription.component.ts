@@ -13,7 +13,7 @@ import { SubscriptionService } from '../services/subscription.service';
 export class SubscriptionComponent implements OnInit, OnChanges {
   @Input() public books: Book[] = []
   public showPopup = false;
-  public subscriptionHasBooks = false;
+  public subscriptionHasBooks = true;
   constructor(
     private snackBar: MatSnackBar,
     private appState: AppState,
@@ -22,7 +22,6 @@ export class SubscriptionComponent implements OnInit, OnChanges {
   }
 
   public ngOnInit(): void {
-    this.appState.isLoading = true;
     this.loadSubscription();
   }
 
@@ -31,11 +30,9 @@ export class SubscriptionComponent implements OnInit, OnChanges {
   }
 
   public deleteBookFromSubscription(book: Book): void {
-    this.appState.isLoading = true;
     this.bookService.deleteBookFromSubscription(book.id, this.appState.subscriptionId).subscribe(isDeleted => {
       if (isDeleted) {
         this.books = this.books.filter(b => b.id !== book.id);
-        this.appState.isLoading = false;
         this.openPopup(`'${book.name}' has been removed from your subscription`);
       }
     });
@@ -56,7 +53,6 @@ export class SubscriptionComponent implements OnInit, OnChanges {
           const book = new Book(el.id, el.name, el.author, el.description, el.rating, el.imageUrl);
           this.books.push(book);
         });
-        this.appState.isLoading = false;
         this.subscriptionHasBooks = this.books.length > 0;
       });
     });

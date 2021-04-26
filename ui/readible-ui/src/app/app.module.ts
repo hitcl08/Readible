@@ -23,6 +23,9 @@ import { UserService} from './services/user.service';
 import { SubscriptionService } from './services/subscription.service';
 import { BookService} from './services/book.service';
 import { CanAccessAuthGuard} from './auth.guard';
+import { SettingsComponent } from './settings/settings.component';
+import { ConfirmationDialogComponent } from './settings/confirmation-dialog/confirmation-dialog.component';
+import { PasswordChangeDialogComponent } from './settings/password-change-dialog/password-change-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +35,10 @@ import { CanAccessAuthGuard} from './auth.guard';
     SubscriptionComponent,
     ToolbarComponent,
     BookCardComponent,
-    SubscriptionBookComponent
+    SubscriptionBookComponent,
+    SettingsComponent,
+    ConfirmationDialogComponent,
+    PasswordChangeDialogComponent
   ],
   imports: [
     BrowserModule,

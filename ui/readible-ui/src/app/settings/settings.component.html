@@ -1,0 +1,33 @@
+<div class="container">
+
+  <div class="e-layout-modal">
+    <div class="row">
+      <div class="e-login-registration">
+
+        <div class="e-header">
+          <div class="e-emi-logo" aria-hidden="true"></div>
+        </div>
+
+
+        <div class="e-modal-content">
+          <h1 class="e-modal-heading">Settings
+            <mat-icon>settings</mat-icon>
+          </h1>
+        </div>
+
+        <div class="credential-container">
+          <div class="btns">
+            <button mat-raised-button color="primary" (click)="openPasswordDialog()" class="delete-account-btn">Change
+              password</button>
+
+            <button mat-raised-button color="primary" (click)="openConfirmDialog()" class="delete-account-btn">Delete
+              account</button>
+          </div>
+          <p class="login-failed" *ngIf="deleteFailed">Account deletion failed, please try again...</p>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

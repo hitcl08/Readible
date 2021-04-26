@@ -66,9 +66,9 @@ namespace Readible.Domain.Repositories.EntityFramework
             return userList;
         }
 
-        public async Task<bool> UpdateUserPassword(string username, string userPassword)
+        public async Task<bool> UpdateUserPassword(int userId, string userPassword)
         {
-            var existingUser = _context.Users.Where(x => x.Username == username).FirstOrDefault();
+            var existingUser = _context.Users.Where(x => x.Id == userId).FirstOrDefault();
             if (existingUser == null)
             {
                 return false;
@@ -76,7 +76,7 @@ namespace Readible.Domain.Repositories.EntityFramework
             existingUser.Password = userPassword;
             await _context.SaveChangesAsync();
 
-            var updatedUser = _context.Users.Where(x => x.Username == username).FirstOrDefault();
+            var updatedUser = _context.Users.Where(x => x.Id == userId).FirstOrDefault();
 
             return updatedUser.Password == userPassword;
         }

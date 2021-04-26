@@ -101,7 +101,7 @@ namespace Readible.Domain.Tests.Repositories
         }
 
         [Fact(Skip = "test not necessary")]
-        public async Task GetUsersByUsername_ShouldReturnUser_WhenValidUsername()
+        public void GetUsersByUsername_ShouldReturnUser_WhenValidUsername()
         {
             // arrange
             var username = "jonny";
@@ -117,11 +117,11 @@ namespace Readible.Domain.Tests.Repositories
         public async Task UpdateUserPassword_ShouldReturnTrue_WhenValidUsernamePassword()
         {
             // arrange
-            var username = "jonny";
+            var userId = 1;
             var password = "this a new password";
 
             // act
-            var request = await _userRepository.UpdateUserPassword(username, password);
+            var request = await _userRepository.UpdateUserPassword(userId, password);
 
             // assert
             Assert.True(request);

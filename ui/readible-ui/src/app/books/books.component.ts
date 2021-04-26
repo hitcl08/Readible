@@ -21,7 +21,6 @@ export class BooksComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.appState.isLoading = true;
     this.appState.showToolbar = true;
 
     this.bookService.getBooks().subscribe(res => {
@@ -34,8 +33,6 @@ export class BooksComponent implements OnInit {
           const bookCard = new BookCard(book, this.isBookAdded(book.id));
           this.bookCards.push(bookCard);
         });
-
-        this.appState.isLoading = false;
       });
     });
   }

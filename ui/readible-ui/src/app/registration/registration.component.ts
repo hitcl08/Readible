@@ -32,7 +32,6 @@ export class RegistrationComponent implements OnInit {
 
   public onSubmit(): void {
     this.isDisabled = true;
-    this.appState.isLoading = true;
 
     const request = new NewUserRequest(this.username, this.password);
 
@@ -40,7 +39,6 @@ export class RegistrationComponent implements OnInit {
       .subscribe(isNewUserRegistered => {
 ;
         if (!isNewUserRegistered) {
-          this.appState.isLoading = false;
           this.isDisabled = false;
           this.registrationFailed = true;
         } else {
@@ -67,7 +65,6 @@ export class RegistrationComponent implements OnInit {
               this.router.navigate(['/books']);
 
               this.appState.showToolbar = true;
-              this.appState.isLoading = false;
             })
           });
       });
