@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, finalize } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ErrorHandlerService } from './error-handler.service';
 
@@ -11,7 +11,7 @@ import { ErrorHandlerService } from './error-handler.service';
 export class BookService {
 
 
-  constructor(private httpClient: HttpClient, private errorHandlerService: ErrorHandlerService) { }
+  constructor(private httpClient: HttpClient, private errorHandlerService: ErrorHandlerService, private appState: AppState) { }
 
   public getBooks(): Observable<any> {
     return this.httpClient.get(`${environment.readibleApiUri}/books`)
@@ -31,7 +31,15 @@ export class BookService {
   public getBooksBySubscriptionId(subscriptionId: number): Observable<any>{
     return this.httpClient.get(`${environment.readibleApiUri}/books/subscriptions/${subscriptionId}`
     ).pipe(
-      catchError(this.errorHandlerService.handleError)
+      finalize(() => this.appState)
+      catchError(this.errorHandlerService.handleError),
     );
+  }
+
+  public deleteBookFromSubscription(bookId: number, subscriptionId: number): Observable<any> {
+    return this.httpClient.delete(`${environment.readibleApiUri}/books/${bookId}/subscriptions/${subscriptionId}`)
+      .pipe(
+        catchError(this.errorHandlerService.handleError)
+      );
   }
 }
