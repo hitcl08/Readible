@@ -1,13 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Readible.Domain.Interfaces;
 using Readible.Domain.Models;
 using Readible.Domain.Repositories.EntityFramework;
 using Readible.Domain.Repositories.EntityFramework.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -24,7 +19,8 @@ namespace Readible.Domain.Tests.Repositories
                 .EnableSensitiveDataLogging();
 
 
-            var config = new MapperConfiguration(cfg => {
+            var config = new MapperConfiguration(cfg =>
+            {
                 cfg.CreateMap<UserViewModel, User>();
             });
 
@@ -48,12 +44,12 @@ namespace Readible.Domain.Tests.Repositories
             Assert.True(isUserAdded);
         }
 
-        [Fact(Skip ="dont delete users")]
+        [Fact(Skip = "dont delete users")]
         public async Task DeleteUser_ShouldReturnTrue_WhenUserIsDeleted()
         {
             // arrange
             var userId = 1;
-            
+
             // act
             var isUserAdded = await _userRepository.DeleteUser(userId);
 
@@ -113,7 +109,7 @@ namespace Readible.Domain.Tests.Repositories
             Assert.Equal(user.Username, username);
         }
 
-        [Fact(Skip ="no need to update password")]
+        [Fact(Skip = "no need to update password")]
         public async Task UpdateUserPassword_ShouldReturnTrue_WhenValidUsernamePassword()
         {
             // arrange

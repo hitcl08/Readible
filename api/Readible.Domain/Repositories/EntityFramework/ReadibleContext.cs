@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Readible.Domain.Models;
 using Readible.Domain.Repositories.EntityFramework.ViewModels;
-using System.Data.Entity.Infrastructure;
 
 namespace Readible.Domain.Repositories.EntityFramework
 {

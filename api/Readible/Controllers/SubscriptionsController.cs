@@ -26,7 +26,7 @@ namespace Readible.Controllers
         }
 
         [HttpGet("users/{id}")]
-        public  IActionResult Get([FromRoute] int id)
+        public IActionResult Get([FromRoute] int id)
         {
             var result = _subscriptionService.GetUserSubscription(id);
             if (result == null)
@@ -58,7 +58,7 @@ namespace Readible.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("{id}",Name ="Delete")]
+        [HttpDelete("{id}", Name = "Delete")]
         public async Task<IActionResult> DeleteSubscription([FromRoute] int id)
         {
             var result = await _subscriptionService.DeleteSubscription(id);

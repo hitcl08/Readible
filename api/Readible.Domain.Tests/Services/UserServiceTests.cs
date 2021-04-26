@@ -2,10 +2,6 @@
 using Readible.Domain.Interfaces;
 using Readible.Domain.Models;
 using Readible.Domain.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -58,7 +54,7 @@ namespace Readible.Domain.Tests.Services
             _userRepositoryMock.Setup(x => x.DeleteUser(It.IsAny<int>())).ReturnsAsync(true);
 
             // act 
-            var result = await  _userService.DeleteUser(userId);
+            var result = await _userService.DeleteUser(userId);
 
             // assert
             Assert.True(result);
@@ -71,7 +67,7 @@ namespace Readible.Domain.Tests.Services
             _userRepositoryMock.Setup(x => x.GetUserById(It.IsAny<int>())).Returns(MockData.Users.GetInvalidUser());
 
             // act 
-            var result =  _userService.GetUserById(userId);
+            var result = _userService.GetUserById(userId);
 
             // assert
             Assert.Null(result);

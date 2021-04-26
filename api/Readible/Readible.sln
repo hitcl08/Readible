@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Readible", "Readible.csproj", "{6F61F316-369B-42F9-B06F-EAC758DBFEF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Readible", "Readible.csproj", "{6F61F316-369B-42F9-B06F-EAC758DBFEF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Readible.Domain", "..\Readible.Domain\Readible.Domain.csproj", "{966D781C-8D27-4477-B50E-43DA0F36FCA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Readible.Domain", "..\Readible.Domain\Readible.Domain.csproj", "{966D781C-8D27-4477-B50E-43DA0F36FCA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Readible.Domain.Tests", "..\Readible.Domain.Tests\Readible.Domain.Tests.csproj", "{F40C2CC6-80DD-4300-9B0C-B369B8CE4D5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Readible.Domain.Tests", "..\Readible.Domain.Tests\Readible.Domain.Tests.csproj", "{F40C2CC6-80DD-4300-9B0C-B369B8CE4D5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Readible.ServiceModel", "..\Readible.ServiceModel\Readible.ServiceModel.csproj", "{BE427DAE-3B6F-4836-B05B-1F568273AF21}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Readible.Tests", "..\Readible.Tests\Readible.Tests.csproj", "{A94E2FD6-B3AE-43B5-AC56-8356A932A8DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Readible.Tests", "..\Readible.Tests\Readible.Tests.csproj", "{A94E2FD6-B3AE-43B5-AC56-8356A932A8DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +29,6 @@ Global
 		{F40C2CC6-80DD-4300-9B0C-B369B8CE4D5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F40C2CC6-80DD-4300-9B0C-B369B8CE4D5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F40C2CC6-80DD-4300-9B0C-B369B8CE4D5D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE427DAE-3B6F-4836-B05B-1F568273AF21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE427DAE-3B6F-4836-B05B-1F568273AF21}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE427DAE-3B6F-4836-B05B-1F568273AF21}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE427DAE-3B6F-4836-B05B-1F568273AF21}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A94E2FD6-B3AE-43B5-AC56-8356A932A8DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A94E2FD6-B3AE-43B5-AC56-8356A932A8DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A94E2FD6-B3AE-43B5-AC56-8356A932A8DC}.Release|Any CPU.ActiveCfg = Release|Any CPU

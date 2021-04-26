@@ -4,9 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Readible.Domain.Interfaces;
 using Readible.Domain.Models;
 using Readible.Requests;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Readible.Controllers

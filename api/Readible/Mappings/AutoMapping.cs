@@ -2,8 +2,6 @@
 using Readible.Domain.Models;
 using Readible.Domain.Repositories.EntityFramework.ViewModels;
 using Readible.Requests;
-using Readible.ServiceModel.Dtos;
-using System.Collections.Generic;
 
 namespace Readible.Mappings
 {

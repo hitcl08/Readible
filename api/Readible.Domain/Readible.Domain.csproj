@@ -12,8 +12,4 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.5" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Readible.ServiceModel\Readible.ServiceModel.csproj" />
-  </ItemGroup>
-
 </Project>

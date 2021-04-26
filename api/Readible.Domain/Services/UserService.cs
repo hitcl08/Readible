@@ -1,10 +1,9 @@
-﻿using BC = BCrypt.Net.BCrypt;
-
-using Readible.Domain.Interfaces;
+﻿using Readible.Domain.Interfaces;
 using Readible.Domain.Models;
 using Readible.Helpers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BC = BCrypt.Net.BCrypt;
 
 
 namespace Readible.Domain.Services
@@ -29,7 +28,8 @@ namespace Readible.Domain.Services
             {
                 Password = BC.HashPassword(password),
                 Username = username,
-                Subscription = new Subscription { 
+                Subscription = new Subscription
+                {
                     Books = new List<Book>(),
                 }
                 // new user begins without a subscription

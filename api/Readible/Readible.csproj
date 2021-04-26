@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Readible.Domain\Readible.Domain.csproj" />
-    <ProjectReference Include="..\Readible.ServiceModel\Readible.ServiceModel.csproj" />
   </ItemGroup>
 
 </Project>

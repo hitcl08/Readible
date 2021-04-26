@@ -31,7 +31,7 @@ namespace Readible.Controllers
 
 
         [HttpGet("{username}")]
-        public  IActionResult Get([FromRoute] string username)
+        public IActionResult Get([FromRoute] string username)
         {
             var result = _userService.GetUserByUsername(username);
             if (result == null)
@@ -51,7 +51,7 @@ namespace Readible.Controllers
                 return BadRequest(result);
             }
 
-            return Created("user",result);
+            return Created("user", result);
         }
 
         [HttpDelete("{id}")]

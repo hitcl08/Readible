@@ -3,10 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Readible.Domain.Interfaces;
 using Readible.Domain.Models;
 using Readible.Domain.Repositories.EntityFramework.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Readible.Domain.Repositories.EntityFramework
@@ -25,9 +23,9 @@ namespace Readible.Domain.Repositories.EntityFramework
         public async Task<bool> Add(int userId)
         {
             var addedSubscription = _context.Subscriptions
-                .Add(new SubscriptionViewModel 
-                { 
-                    UserId = userId                    
+                .Add(new SubscriptionViewModel
+                {
+                    UserId = userId
                 });
 
             await _context.SaveChangesAsync();
@@ -66,7 +64,7 @@ namespace Readible.Domain.Repositories.EntityFramework
                 _context.Books,
                 s => s.BookId,
                 b => b.Id,
-                (s,b)=> new SubscriptionViewModel
+                (s, b) => new SubscriptionViewModel
                 {
                     Id = s.SubscriptionId,
                     SubscriptionBooks = b.SubscriptionBooks.ToList(),

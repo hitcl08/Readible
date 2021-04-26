@@ -3,10 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Readible.Domain.Models;
 using Readible.Domain.Repositories.EntityFramework;
 using Readible.Domain.Repositories.EntityFramework.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -23,7 +19,8 @@ namespace Readible.Domain.Tests.Repositories
                 .EnableSensitiveDataLogging();
 
 
-            var config = new MapperConfiguration(cfg => {
+            var config = new MapperConfiguration(cfg =>
+            {
                 cfg.CreateMap<SubscriptionViewModel, Subscription>();
             });
 
@@ -34,7 +31,7 @@ namespace Readible.Domain.Tests.Repositories
             _subscriptionRepository = new SubscriptionRepository(context, mapper);
         }
 
-        [Fact(Skip ="no need to add more subscriptions")]
+        [Fact(Skip = "no need to add more subscriptions")]
         public async Task AddUserSubscription_ShouldReturnTrue_ForValidUserId()
         {
             // arrange
