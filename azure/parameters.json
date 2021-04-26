@@ -1,0 +1,48 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vulnerabilityAssessments_Default_storageContainerPath": {
+            "value": null
+        },
+        "servers_readible_name": {
+            "value": null
+        },
+        "sites_readible_api_name": {
+            "value": null
+        },
+        "vaults_readible_kv_name": {
+            "value": null
+        },
+        "serverfarms_readible_asp_name": {
+            "value": null
+        },
+        "components_readible_ai_name": {
+            "value": null
+        },
+        "storageAccounts_readible_name": {
+            "value": null
+        },
+        "registries_readibledcr_name": {
+            "value": null
+        },
+        "containerGroups_readible_ctr_name": {
+            "value": null
+        },
+        "actionGroups_Application_Insights_Smart_Detection_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___readible_ai_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___readible_api_name": {
+            "value": null
+        },
+        "components_readible_api_externalid": {
+            "value": null
+        },
+        "workspaces_DefaultWorkspace_64a8d724_5020_49a0_8d8d_51737ed242de_WEU_externalid": {
+            "value": null
+        }
+    }
+}
