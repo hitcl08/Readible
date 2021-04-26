@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,7 +11,7 @@ import { SubscriptionComponent } from './subscription/subscription.component';
 import { MaterialModule } from './material-module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToolbarComponent } from './toolbar/toolbar.component';
-import {AuthService} from './services/auth.service';
+import { AuthService } from './services/auth.service';
 import { BookCardComponent } from './books/book-card/book-card.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SubscriptionBookComponent } from './subscription/subscription-book/subscription-book.component';
@@ -19,13 +19,14 @@ import { ErrorHandlerService } from './services/error-handler.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppState } from './app.state';
 import { TokenInterceptor } from './interceptors/token.interceptor';
-import { UserService} from './services/user.service';
+import { UserService } from './services/user.service';
 import { SubscriptionService } from './services/subscription.service';
-import { BookService} from './services/book.service';
-import { CanAccessAuthGuard} from './auth.guard';
+import { BookService } from './services/book.service';
+import { CanAccessAuthGuard } from './auth.guard';
 import { SettingsComponent } from './settings/settings.component';
 import { ConfirmationDialogComponent } from './settings/confirmation-dialog/confirmation-dialog.component';
 import { PasswordChangeDialogComponent } from './settings/password-change-dialog/password-change-dialog.component';
+import { MonitoringService } from './services/monitoring.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,10 +53,14 @@ import { PasswordChangeDialogComponent } from './settings/password-change-dialog
   ],
   providers: [
     AuthService,
-    ErrorHandlerService,
+    {
+      provide: ErrorHandler,
+      useClass: ErrorHandlerService
+    },
     UserService,
     SubscriptionService,
     BookService,
+    MonitoringService,
     AppState,
     {
       provide: HTTP_INTERCEPTORS,

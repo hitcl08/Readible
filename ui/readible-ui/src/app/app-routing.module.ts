@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'subscription', component: SubscriptionComponent, canActivate: [CanAccessAuthGuard] },
   { path: 'books', component: BooksComponent, canActivate: [CanAccessAuthGuard] },
-  { path: 'settings', component: SettingsComponent },
+  { path: 'settings', component: SettingsComponent, canActivate: [CanAccessAuthGuard] },
 
 ];
 

@@ -2,13 +2,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { AppState } from '../app.state';
+import { MonitoringService } from './monitoring.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErrorHandlerService {
-  constructor(private appState: AppState){}
+  constructor(private appState: AppState, private monitoringService: MonitoringService){}
   public handleError(error: HttpErrorResponse): any {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -21,6 +22,7 @@ export class ErrorHandlerService {
         `body was: ${error.error}`);
     }
     // Return an observable with a user-facing error message.
+    this.monitoringService.logException(error);
     return throwError(
       'Something bad happened; please try again later.');
   }

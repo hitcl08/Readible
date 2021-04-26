@@ -15,7 +15,7 @@ namespace Readible.Tests.Controller
     {
         private const string UserUri = "users";
 
-        private Mock<IUserService> _mockUserService;
+        private readonly Mock<IUserService> _mockUserService;
 
 
         private readonly WebApplicationFactory<Startup> _webApplicationFactory;

@@ -58,7 +58,7 @@ namespace Readible.Domain.Tests.Services
         {
             // arrange
             _subscriptionRepositoryMock.Setup(x => x.Add(It.IsAny<int>())).ReturnsAsync(true);
-            _userServiceMock.Setup(x => x.GetUserByUsername(It.IsAny<string>())).Returns(MockData.Users.GetValidUser());
+            _userServiceMock.Setup(x => x.GetUserById(It.IsAny<int>())).Returns(MockData.Users.GetValidUser());
 
             // act
             var result = await _subscriptionService.AddUserSubscription(1);
@@ -86,7 +86,7 @@ namespace Readible.Domain.Tests.Services
         {
             // arrange
             _subscriptionRepositoryMock.Setup(x => x.DeleteByUserId(It.IsAny<int>())).ReturnsAsync(true);
-            _userServiceMock.Setup(x => x.GetUserByUsername(It.IsAny<string>())).Returns(MockData.Users.GetValidUser());
+            _userServiceMock.Setup(x => x.GetUserById(It.IsAny<int>())).Returns(MockData.Users.GetValidUser());
 
             // act
             var result = await _subscriptionService.DeleteUserSubscription(1);

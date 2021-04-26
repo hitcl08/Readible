@@ -1,23 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Readible.Domain.Interfaces;
 using Readible.Domain.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Readible.Domain.Repositories.EntityFramework;
-using AutoMapper;
-using Readible.Domain.Repositories.EntityFramework.ViewModels;
-using Readible.Domain.Models;
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -33,7 +24,7 @@ namespace Readible
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            _connectionString = "Server=tcp:readible.database.windows.net,1433;Initial Catalog=readible-db;Persist Security Info=False;User ID=liamhitchcock;Password=4fBuJ976YAUdwRXQ;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;";
+            _connectionString = Configuration["ReadibleConnectionString"];
 
         }
 
@@ -42,9 +33,6 @@ namespace Readible
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // TODO APP INSIGHTS
-            //services.ConfigureApplicationInsights(Configuration);
-
             services.AddDbContext<ReadibleContext>(options => options.UseSqlServer(_connectionString)
             .EnableSensitiveDataLogging());
 
@@ -67,6 +55,7 @@ namespace Readible
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Readible", Version = "v1" });
             });
             services.AddRouting(opt => opt.LowercaseUrls = true);
+            services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
