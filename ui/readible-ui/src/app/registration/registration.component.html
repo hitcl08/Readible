@@ -22,7 +22,8 @@
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Enter your new password</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password" (keydown.enter)="onSubmit()">
+            <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password" (keydown.enter)="onSubmit()"
+              (input)="onPasswordInput()">
             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
               [attr.aria-pressed]="hide">
               <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -30,8 +31,11 @@
           </mat-form-field>
           <br>
 
+          <p class="login-failed" *ngIf="password.length < 8 && password.length > 1">Password must have at least 8 characters</p>
+
           <p class="login-failed" *ngIf="registrationFailed">Registration failed. Please try again later...</p>
-          <button mat-raised-button color="primary" style="float: right;" (click)="onSubmit()" [disabled]="isDisabled">CREATE ACCOUNT</button>
+          <button mat-raised-button color="primary" style="float: right;" (click)="onSubmit()"
+            [disabled]="isDisabled">CREATE ACCOUNT</button>
         </div>
 
       </div>

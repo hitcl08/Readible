@@ -1,10 +1,10 @@
 import { stringify } from '@angular/compiler/src/util';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppState } from '../app.state';
 import { NewUserRequest } from '../models/new-user.request';
 import { AuthService } from '../services/auth.service';
-import { SubscriptionRequest } from '../models/subscription.request'
+import { SubscriptionRequest } from '../models/subscription.request';
 import { UserService } from '../services/user.service';
 import { SubscriptionService } from '../services/subscription.service';
 import { flatMap } from 'rxjs/operators';
@@ -13,13 +13,13 @@ import { flatMap } from 'rxjs/operators';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent implements OnInit, OnChanges {
 
   public hide = true;
   public username = '';
   public password = '';
   public registrationFailed = false;
-  public isDisabled = false;
+  public isDisabled = true;
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -30,6 +30,16 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnChanges(): void {
+
+  }
+
+  public onPasswordInput() {
+    if (this.username.length > 0 && this.password.length > 7) {
+      this.isDisabled = false;
+    }
+  }
+
   public onSubmit(): void {
     this.isDisabled = true;
 
@@ -37,7 +47,7 @@ export class RegistrationComponent implements OnInit {
 
     this.userService.registerNewUser(request)
       .subscribe(isNewUserRegistered => {
-;
+
         if (!isNewUserRegistered) {
           this.isDisabled = false;
           this.registrationFailed = true;
@@ -58,14 +68,14 @@ export class RegistrationComponent implements OnInit {
         this.subscriptionService.registerNewUserSubscription(subscriptionRequest)
 
           .subscribe(() => {
-            this.subscriptionService.getUserSubscription(this.appState.userId).subscribe(res => {
-              this.appState.subscriptionId = res.id;
+            this.subscriptionService.getUserSubscription(this.appState.userId).subscribe(userSub => {
+              this.appState.subscriptionId = userSub.id;
 
               this.authService.isAuthenticated = true;
               this.router.navigate(['/books']);
 
               this.appState.showToolbar = true;
-            })
+            });
           });
       });
   }
